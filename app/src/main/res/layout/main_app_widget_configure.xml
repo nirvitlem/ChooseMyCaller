@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Button
+        android:id="@+id/S_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="64dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/add_widget"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/L_VIEW"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <CheckBox
+        android:id="@+id/GPS_B"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="32dp"
+        android:text="כולל GPS"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/DisFromPT"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/editText_X"
+        android:layout_width="170dp"
+        android:layout_height="48dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginTop="24dp"
+        android:allowUndo="true"
+        android:autoText="true"
+        android:clickable="true"
+        android:contextClickable="true"
+        android:cursorVisible="true"
+        android:editable="true"
+        android:enabled="true"
+        android:text="קו רוחב"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/GPS_B" />
+
+    <EditText
+        android:id="@+id/editText_Y"
+        android:layout_width="170dp"
+        android:layout_height="48dp"
+        android:layout_marginEnd="4dp"
+        android:allowUndo="true"
+        android:autoText="true"
+        android:clickable="true"
+        android:contextClickable="true"
+        android:cursorVisible="true"
+        android:editable="true"
+        android:enabled="true"
+        android:text="קו אורך"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editText_X" />
+
+    <EditText
+        android:id="@+id/DisFromPT"
+        android:layout_width="170dp"
+        android:layout_height="48dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:allowUndo="true"
+        android:autoText="true"
+        android:clickable="true"
+        android:contextClickable="true"
+        android:cursorVisible="true"
+        android:enabled="true"
+        android:text="מרחק מהנקודה"
+        app:layout_constraintEnd_toStartOf="@+id/GPS_B"
+        app:layout_constraintHorizontal_bias="0.736"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/editText_T"
+        android:layout_width="170dp"
+        android:layout_height="48dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginTop="8dp"
+        android:allowUndo="true"
+        android:autoText="true"
+        android:clickable="true"
+        android:contextClickable="true"
+        android:cursorVisible="true"
+        android:editable="true"
+        android:enabled="true"
+        android:text="מספר טלפון"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editText_Y" />
+
+    <Button
+        android:id="@+id/A_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="128dp"
+        android:text="הוסף"
+        app:layout_constraintEnd_toStartOf="@+id/editText_Y"
+        app:layout_constraintHorizontal_bias="0.21"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/DisFromPT" />
+
+    <Button
+        android:id="@+id/D_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="64dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
+        android:text="מחק"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.835"
+        app:layout_constraintStart_toEndOf="@+id/S_button"
+        app:layout_constraintTop_toBottomOf="@+id/L_VIEW"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <ListView
+        android:id="@+id/L_VIEW"
+        android:layout_width="339dp"
+        android:layout_height="191dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="28dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.696"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editText_T" />
+
+</android.support.constraint.ConstraintLayout>
