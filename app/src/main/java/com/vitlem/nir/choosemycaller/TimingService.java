@@ -54,6 +54,7 @@ public class TimingService extends Service {
 
         // Display a notification about us starting.  We put an icon in the status bar.
         //showNotification();
+        Start();
     }
 
     @Override
