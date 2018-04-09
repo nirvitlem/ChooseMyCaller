@@ -40,9 +40,9 @@ public class CustomPhoneStateListener extends PhoneStateListener {
                 TimingService.runGetVolumep();
                 if (MainAppWidget.listItems != null) {
                     for (String item : MainAppWidget.listItems) {
-                        MainAppWidget.SetText(incomingNumber + " N " + GetCurrentTime.GetTime(), Color.BLACK);
+                        MainAppWidget.SetText(incomingNumber + " N " + GetCurrentTime.GetTime(), Color.GRAY);
                         if (incomingNumber.equals(item.split("#")[0].toString())) {
-                            MainAppWidget.SetText(incomingNumber + " Y " + GetCurrentTime.GetTime(), Color.BLACK);
+                            MainAppWidget.SetText(incomingNumber + " Y " + GetCurrentTime.GetTime(), Color.GREEN);
                             TimingService.runGetVolumep();
                         }
                     }
