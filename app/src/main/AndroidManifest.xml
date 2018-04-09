@@ -35,6 +35,17 @@
             android:name=".TimingService"
             android:enabled="true"
             android:exported="true"></service>
+        <receiver
+            android:name=".SensorRestarterBroadcastReceive"
+            android:enabled="true"
+            android:exported="true"
+            android:label="RestartServiceWhenStopped">
+            <intent-filter>
+                <action android:name="uk.ac.shef.oak.ActivityRecognition.RestartSensor"/>
+            </intent-filter>
+        </receiver>
     </application>
+
+
 
 </manifest>

@@ -60,8 +60,8 @@ public class TimingService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.i("LocalService", "Received start id " + startId + ": " + intent);
-        MainAppWidget.SetText(String.valueOf( startId)+ " " + GetCurrentTime.GetTime(),Color.GREEN);
-        Start();
+        //MainAppWidget.SetText(String.valueOf( startId)+ " " + GetCurrentTime.GetTime(),Color.GREEN);
+        //Start();
 
         return START_NOT_STICKY;
     }
@@ -73,10 +73,12 @@ public class TimingService extends Service {
 
         // Tell the user we stopped.
         Toast.makeText(this, R.string.local_service_stopped, Toast.LENGTH_SHORT).show();
-        Log.i("ScreenOnOff", "Service  distroy");
+        Log.i("onDestroy", "Service  distroy");
         ACTION_STATUS="onDestroy";
         if(mReceiver!=null)
             unregisterReceiver(mReceiver);
+        Intent broadcastIntent = new Intent("SensorRestarterBroadcastReceive");
+        sendBroadcast(broadcastIntent);
     }
     private void showNotification() {
         // In this sample, we'll use the same text for the ticker and the expanded notification
@@ -104,6 +106,7 @@ public class TimingService extends Service {
 
 
         Log.d("Start", "Start Main");
+
         audio = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
         alertUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE);
         r = RingtoneManager.getRingtone(getApplicationContext(), alertUri);
