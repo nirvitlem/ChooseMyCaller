@@ -30,7 +30,7 @@ public class TimingService extends Service {
     public static Uri alertUri;
     public static Ringtone r;
     private static  Location location=null;
-    TelephonyManager tManager;
+    TelephonyManager tManager=null;
     private BroadcastReceiver mReceiver=null;
     public static String ACTION_STATUS =null;
     public static String StatusM= "";
@@ -54,13 +54,13 @@ public class TimingService extends Service {
 
         // Display a notification about us starting.  We put an icon in the status bar.
         //showNotification();
-        Start();
+        //Start();
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.i("LocalService", "Received start id " + startId + ": " + intent);
-        //MainAppWidget.SetText(String.valueOf( startId));
+        MainAppWidget.SetText(String.valueOf( startId)+ " " + GetCurrentTime.GetTime(),Color.GREEN);
         Start();
 
         return START_NOT_STICKY;
@@ -100,25 +100,25 @@ public class TimingService extends Service {
         mNM.notify(NOTIFICATION, notification);
     }
 
-    private void Start()
-    {
+    private void Start() {
 
 
-        Log.d("debug", "buildUpdate");
+        Log.d("Start", "Start Main");
         audio = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
         alertUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE);
         r = RingtoneManager.getRingtone(getApplicationContext(), alertUri);
-        //RemoteViews view = new RemoteViews(getPackageName(), R.layout.main_app_widget);
-        tManager = (TelephonyManager)getSystemService(TELEPHONY_SERVICE) ;
-        tManager.listen(new CustomPhoneStateListener(),
-                PhoneStateListener.LISTEN_CALL_STATE
-        );
-        MainAppWidget.SetText("Crerate Phone Listner " + GetCurrentTime.GetTime(),Color.GREEN);
+        if (tManager == null) {
+            tManager = (TelephonyManager) getSystemService(TELEPHONY_SERVICE);
+            tManager.listen(new CustomPhoneStateListener(),
+                    PhoneStateListener.LISTEN_CALL_STATE
+            );
+        }
+        MainAppWidget.SetText("Crerate Phone Listner " + GetCurrentTime.GetTime(), Color.GREEN);
         LocationManager locationManager;
         boolean isGPSEnabled = false;
-        location=null; // location
-        double latitude=0; // latitude
-        double longitude=0; // longitude
+        location = null; // location
+        double latitude = 0; // latitude
+        double longitude = 0; // longitude
         // The minimum distance to change Updates in meters
         final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 10; // 10 meters
 
@@ -127,10 +127,11 @@ public class TimingService extends Service {
 
 
         // Instruct the widget manager to update the widget
-        if ( ContextCompat.checkSelfPermission( this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED ) {
+        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
 
         }
+
 
         locationManager = (LocationManager) this
                 .getSystemService(LOCATION_SERVICE);
@@ -143,26 +144,22 @@ public class TimingService extends Service {
             if (location == null) {
                 Log.d("GPS Enabled", "GPS Enabled");
                 if (locationManager != null) {
-                    Log.d("locationManager","LocationManager is not null");
+                    Log.d("locationManager", "LocationManager is not null");
                     location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-                    if (location==null)
-                    {
+                    if (location == null) {
                         location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-                        GPSorN=false;
-                    }
-                    else GPSorN=true;
+                        GPSorN = false;
+                    } else GPSorN = true;
                     if (location != null) {
-                        Log.d("location","Location is not null");
+                        Log.d("location", "Location is not null");
                         latitude = location.getLatitude();
                         longitude = location.getLongitude();
-                        Log.d("latitude",String.valueOf(latitude)+ " TimeUpdate  " + Calendar.getInstance().getTime());
-                        Log.d("longitude",String.valueOf(longitude)+ " TimeUpdate  " + Calendar.getInstance().getTime());
+                        Log.d("latitude", String.valueOf(latitude) + " TimeUpdate  " + Calendar.getInstance().getTime());
+                        Log.d("longitude", String.valueOf(longitude) + " TimeUpdate  " + Calendar.getInstance().getTime());
                         //view.setInt(R.layout.main_app_widget,"setBackgroundColor", Color.GREEN);
                         if (GPSorN) {
-                            MainAppWidget.setTextInfoColor( Color.GREEN);
-                        }
-                        else
-                        {
+                            MainAppWidget.setTextInfoColor(Color.GREEN);
+                        } else {
                             MainAppWidget.setTextInfoColor(Color.MAGENTA);
                         }
 
@@ -171,37 +168,26 @@ public class TimingService extends Service {
                         lb.setLongitude(yLoc);
                         dis=  location.distanceTo(lb)/1000;
                         StatusM= "Lat " + latitude  + " \nLon " + longitude + " \ndistance " + String.valueOf(dis);*/
-                        StatusM= "Lat " + latitude  + " \nLon " + longitude;
-                    }
-                    else
-                    {
-                        StatusM="Location is Null";
+                        StatusM = "Lat " + latitude + " \nLon " + longitude;
+                    } else {
+                        StatusM = "Location is Null";
                         MainAppWidget.setTextInfoColor(Color.RED);
                         //view.setInt(R.layout.main_app_widget,"setBackgroundColor", Color.RED);
                     }
                 }
-            }
-            else
-            {
-                StatusM="Location Manager is Null";
+            } else {
+                StatusM = "Location Manager is Null";
                 MainAppWidget.setTextInfoColor(Color.RED);
                 //view.setInt(R.layout.main_app_widget,"setBackgroundColor", Color.RED);
             }
-        }
-        else
-        {
+        } else {
 
-            StatusM="GPS Is not Enabled";
+            StatusM = "GPS Is not Enabled";
             MainAppWidget.setTextInfoColor(Color.RED);
             //view.setInt(R.layout.main_app_widget,"setBackgroundColor", Color.RED);
         }
-
-        // view.setTextViewText(R.id.appwidget_text, StatusM + " \nAM " + getVoulumeP(dis) +" \nTimeUpdate  " + Calendar.getInstance().getTime());
         MainAppWidget.SetTextinfo(StatusM + " \nAM " + " \nTimeUpdate  " + GetCurrentTime.GetTime());
-      /* view.setTextViewText(R.id.appwidget_text, StatusM + " \nAM " + " \nTimeUpdate  " + Calendar.getInstance().getTime());
-        ComponentName thisWidget = new ComponentName(this, MainAppWidget.class);
-        AppWidgetManager manager = AppWidgetManager.getInstance(this);
-        manager.updateAppWidget(thisWidget, view);*/
+
     }
 
         static void runGetVolumep() {

@@ -37,7 +37,7 @@ public class CustomPhoneStateListener extends PhoneStateListener {
             case TelephonyManager.CALL_STATE_RINGING:
                 Log.i(LOG_TAG, "onCallStateChanged: CALL_STATE_RINGING");
                 Log.i(LOG_TAG, "incomingNumber: " + incomingNumber);
-                TimingService.runGetVolumep();
+                //TimingService.runGetVolumep();
                 if (MainAppWidget.listItems != null) {
                     for (String item : MainAppWidget.listItems) {
                         MainAppWidget.SetText(incomingNumber + " N " + GetCurrentTime.GetTime(), Color.GRAY);
