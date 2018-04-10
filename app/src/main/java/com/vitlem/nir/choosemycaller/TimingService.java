@@ -30,7 +30,7 @@ public class TimingService extends JobIntentService {
     public static Uri alertUri;
     public static Ringtone r;
     private static  Location location=null;
-    TelephonyManager tManager=null;
+    public static TelephonyManager tManager=null;
     private BroadcastReceiver mReceiver=null;
     public static String ACTION_STATUS =null;
     public static String StatusM= "";
@@ -125,12 +125,15 @@ public class TimingService extends JobIntentService {
         audio = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
         alertUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE);
         r = RingtoneManager.getRingtone(getApplicationContext(), alertUri);
+
         if (tManager == null) {
+            Log.d("tManager", "null ");
             tManager = (TelephonyManager) getSystemService(TELEPHONY_SERVICE);
             tManager.listen(new CustomPhoneStateListener(),
                     PhoneStateListener.LISTEN_CALL_STATE
             );
-        }
+        } else
+            Log.d("tManager", "Not null ");
         //MainAppWidget.SetText("Crerate Phone Listner " + GetCurrentTime.GetTime(), Color.GREEN);
         LocationManager locationManager;
         boolean isGPSEnabled = false;
@@ -250,7 +253,7 @@ public class TimingService extends JobIntentService {
         }
     }
 
-    private double getVoulumeP()
+    public static double getVoulumeP()
     {
         try {
             // Log.i("getVoulumeP", String.valueOf(dist));

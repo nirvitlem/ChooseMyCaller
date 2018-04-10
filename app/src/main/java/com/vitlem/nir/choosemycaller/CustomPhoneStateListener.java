@@ -11,7 +11,7 @@ import java.util.List;
 public class CustomPhoneStateListener extends PhoneStateListener {
 
     public static String LOG_TAG = "PhoneStateListener";
-
+    public static  String lastInfo = "";
 
     @Override
     public void onCellInfoChanged(List<CellInfo> cellInfo) {
@@ -30,7 +30,7 @@ public class CustomPhoneStateListener extends PhoneStateListener {
         switch (state) {
             case TelephonyManager.CALL_STATE_IDLE:
 
-               // MainAppWidget.SetText("onCallStateChanged: CALL_STATE_IDLE " + System.currentTimeMillis());
+                MainAppWidget.SetText("CALL_STATE_IDLE \n * " + lastInfo + " * " + GetCurrentTime.GetTime(),Color.GREEN);
                 Log.i(LOG_TAG, "onCallStateChanged: CALL_STATE_IDLE");
                 TimingService.StopPalyPlayer();
                 break;
@@ -38,12 +38,15 @@ public class CustomPhoneStateListener extends PhoneStateListener {
                 Log.i(LOG_TAG, "onCallStateChanged: CALL_STATE_RINGING");
                 Log.i(LOG_TAG, "incomingNumber: " + incomingNumber);
                 //TimingService.runGetVolumep();
+
                 if (MainAppWidget.listItems != null) {
                     for (String item : MainAppWidget.listItems) {
                         MainAppWidget.SetText(incomingNumber + " N " + GetCurrentTime.GetTime(), Color.GRAY);
+                        lastInfo= incomingNumber + " N " + GetCurrentTime.GetTime();
                         if (incomingNumber.equals(item.split("#")[0].toString())) {
+                            lastInfo= incomingNumber + " Y " + GetCurrentTime.GetTime();
                             MainAppWidget.SetText(incomingNumber + " Y " + GetCurrentTime.GetTime(), Color.GREEN);
-                            TimingService.runGetVolumep();
+                            if (item.split("#")[1].toString().equals("0")) TimingService.getVoulumeP(); else TimingService.runGetVolumep();
                         }
                     }
                 }
