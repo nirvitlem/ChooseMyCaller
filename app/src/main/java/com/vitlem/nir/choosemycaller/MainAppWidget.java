@@ -26,7 +26,7 @@ public class MainAppWidget extends AppWidgetProvider {
     public static  RemoteViews views;
     public static  Context c;
     public static List<String> listItems;
-
+    public static String ClickOnME= "ClickW";
 
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                 int appWidgetId) {
@@ -36,7 +36,10 @@ public class MainAppWidget extends AppWidgetProvider {
         views.setTextViewText(R.id.appwidget_text, "Waiting For Call");
         c=context;
         listItems= SaveLoadRecords.loadTitlePref(context,1);
-
+        Intent intent = new Intent(context, MainAppWidget.class);
+        intent.setAction(ClickOnME);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, 0);
+        views.setOnClickPendingIntent(R.id.ConfigB,pendingIntent);
         // Instruct the widget manager to update the widget
         appWidgetManager.updateAppWidget(appWidgetId, views);
     }
@@ -71,6 +74,23 @@ public class MainAppWidget extends AppWidgetProvider {
 
         for (int appWidgetId : appWidgetIds) {
             updateAppWidget(context, appWidgetManager, appWidgetId);
+        }
+    }
+
+    @Override
+    public void onReceive(Context context, Intent intent) {
+        super.onReceive(context, intent);
+
+        if (intent.getAction().equals(ClickOnME)) {
+            Log.d("onReceive", "ClickOnME");
+
+/*            Intent newIntent = new Intent(context, MainAppWidgetConfigureActivity.class);
+            PendingIntent.getActivity(context,0,newIntent,0);*/
+            Intent newIntent = new Intent(Intent.ACTION_VIEW);
+            newIntent.setClassName("com.vitlem.nir.choosemycaller","com.vitlem.nir.choosemycaller.MainAppWidgetConfigureActivity");
+            newIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(newIntent);
+
         }
     }
 
@@ -130,6 +150,11 @@ public class MainAppWidget extends AppWidgetProvider {
         int[] appWidgetIds = appWidgetManager.getAppWidgetIds(thisAppWidget);
 
         appWidgetManager.updateAppWidget(appWidgetIds, views);
+    }
+
+    public static void LoadNumbers()
+    {
+        if (c!=null) listItems= SaveLoadRecords.loadTitlePref(c,1);
     }
 }
 

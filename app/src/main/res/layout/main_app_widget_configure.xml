@@ -11,13 +11,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="64dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="@string/add_widget"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/L_VIEW"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <CheckBox
         android:id="@+id/GPS_B"
@@ -26,7 +26,7 @@
         android:layout_marginEnd="16dp"
         android:layout_marginStart="40dp"
         android:layout_marginTop="32dp"
-        android:text="כולל GPS"
+        android:text=" GPS"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/DisFromPT"
         app:layout_constraintTop_toTopOf="parent" />
@@ -44,7 +44,7 @@
         android:cursorVisible="true"
         android:editable="true"
         android:enabled="true"
-        android:text="קו רוחב"
+        android:text="X"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/GPS_B" />
 
@@ -60,7 +60,7 @@
         android:cursorVisible="true"
         android:editable="true"
         android:enabled="true"
-        android:text="קו אורך"
+        android:text="Y"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editText_X" />
 
@@ -77,7 +77,7 @@
         android:contextClickable="true"
         android:cursorVisible="true"
         android:enabled="true"
-        android:text="מרחק מהנקודה"
+        android:text="Distance"
         app:layout_constraintEnd_toStartOf="@+id/GPS_B"
         app:layout_constraintHorizontal_bias="0.736"
         app:layout_constraintStart_toStartOf="parent"
@@ -96,7 +96,7 @@
         android:cursorVisible="true"
         android:editable="true"
         android:enabled="true"
-        android:text="מספר טלפון"
+        android:text="Number"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editText_Y" />
 
@@ -107,7 +107,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="128dp"
-        android:text="הוסף"
+        android:text="Add"
         app:layout_constraintEnd_toStartOf="@+id/editText_Y"
         app:layout_constraintHorizontal_bias="0.21"
         app:layout_constraintStart_toStartOf="parent"
@@ -120,13 +120,13 @@
         android:layout_marginBottom="64dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="8dp"
-        android:text="מחק"
+        android:text="Delete"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.835"
+        app:layout_constraintHorizontal_bias="0.659"
         app:layout_constraintStart_toEndOf="@+id/S_button"
         app:layout_constraintTop_toBottomOf="@+id/L_VIEW"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <ListView
         android:id="@+id/L_VIEW"
@@ -135,6 +135,11 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="28dp"
+        android:choiceMode="singleChoice"
+        android:clickable="true"
+        android:contextClickable="true"
+        android:isScrollContainer="true"
+        android:listSelector="#666666"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.696"
         app:layout_constraintStart_toStartOf="parent"

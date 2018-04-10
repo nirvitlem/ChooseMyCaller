@@ -2,7 +2,7 @@
     <string name="app_name">ChooseMyCaller</string>
     <string name="appwidget_text">######</string>
     <string name="configure">Configure</string>
-    <string name="add_widget">שמור</string>
+    <string name="add_widget">Save</string>
     <string name="local_service_started">Running Service</string>
     <string name="local_service_stopped">Stopped Service</string>
 </resources>

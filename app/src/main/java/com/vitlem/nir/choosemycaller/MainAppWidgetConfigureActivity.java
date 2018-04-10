@@ -87,10 +87,10 @@ public class MainAppWidgetConfigureActivity extends Activity {
             }
 
             // If this activity was started with an intent without an app widget ID, finish with an error.
-            if (mAppWidgetId == AppWidgetManager.INVALID_APPWIDGET_ID) {
+          /*  if (mAppWidgetId == AppWidgetManager.INVALID_APPWIDGET_ID) {
                 finish();
                 return;
-            }
+            }*/
 
         }
 
@@ -183,6 +183,7 @@ public class MainAppWidgetConfigureActivity extends Activity {
                             Intent resultValue = new Intent();
                             resultValue.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, mAppWidgetId);
                             setResult(RESULT_OK, resultValue);
+                            MainAppWidget.LoadNumbers();
                             finish();
                             MainAppWidgetConfigureActivity.this.finish();
                         }
@@ -229,7 +230,7 @@ public class MainAppWidgetConfigureActivity extends Activity {
         public void onItemClick(AdapterView<?> parent, View view,
                                 int position, long id) {
 
-
+            view.setSelected(true);
             // ListView Clicked item index
             itemPosition = position;
 
