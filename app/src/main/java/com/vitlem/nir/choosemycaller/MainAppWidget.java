@@ -33,7 +33,7 @@ public class MainAppWidget extends AppWidgetProvider {
 
         // Construct the RemoteViews object
         views = new RemoteViews(context.getPackageName(), R.layout.main_app_widget);
-        views.setTextViewText(R.id.appwidget_text, "Loading....");
+        views.setTextViewText(R.id.appwidget_text, "Waiting For Call");
         c=context;
         listItems= SaveLoadRecords.loadTitlePref(context,1);
 
@@ -62,11 +62,12 @@ public class MainAppWidget extends AppWidgetProvider {
             service = PendingIntent.getService(context, 0, i, PendingIntent.FLAG_CANCEL_CURRENT);
         }
 
-        m.setRepeating(AlarmManager.RTC, TIME.getTime().getTime(), 30 * 1000, service); //30 second
+        m.setRepeating(AlarmManager.RTC, TIME.getTime().getTime(), 180 * 1000, service); //180 second
 
-        Log.d("AppWidget", "onUpdate");
+        Log.d("MainAppWidget", "onUpdate");
 
 
+       ;
 
         for (int appWidgetId : appWidgetIds) {
             updateAppWidget(context, appWidgetManager, appWidgetId);

@@ -1,12 +1,11 @@
 package com.vitlem.nir.choosemycaller;
-
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.app.Service;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Location;
@@ -16,15 +15,16 @@ import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.IBinder;
+import android.support.annotation.Nullable;
+import android.support.v4.app.JobIntentService;
 import android.support.v4.content.ContextCompat;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 import android.util.Log;
-import android.widget.Toast;
 
 import java.util.Calendar;
 
-public class TimingService extends Service {
+public class TimingService extends JobIntentService {
     private NotificationManager mNM;
     public static AudioManager audio;
     public static Uri alertUri;
@@ -36,30 +36,43 @@ public class TimingService extends Service {
     public static String StatusM= "";
     private static  boolean GPSorN= true;
     public static float dis=0;
+    BroadcastReceiver br;
+    IntentFilter screenStateFilter;
     // Unique Identification Number for the Notification.
     // We use it on Notification start, and to cancel it.
     private int NOTIFICATION = R.string.local_service_started;
     public TimingService() {
     }
 
+    @Nullable
     @Override
     public IBinder onBind(Intent intent) {
+
         // TODO: Return the communication channel to the service.
-        throw new UnsupportedOperationException("Not yet implemented");
+        return null;
     }
 
     @Override
     public void onCreate() {
         mNM = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
-
+        startForeground(1,new Notification());
         // Display a notification about us starting.  We put an icon in the status bar.
         //showNotification();
         //Start();
     }
 
     @Override
+    protected void onHandleWork(Intent intent) {
+        Start();
+    }
+
+    @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.i("LocalService", "Received start id " + startId + ": " + intent);
+        br= new SensorRestarterBroadcastReceive();
+        screenStateFilter =new IntentFilter();
+        screenStateFilter.addAction((".RestartSensor"));
+        registerReceiver(br,screenStateFilter);
         //MainAppWidget.SetText(String.valueOf( startId)+ " " + GetCurrentTime.GetTime(),Color.GREEN);
         Start();
 
@@ -68,17 +81,19 @@ public class TimingService extends Service {
 
     @Override
     public void onDestroy() {
+        super.onDestroy();
+        Intent broadcastIntent = new Intent(".RestartSensor");
+        sendBroadcast(broadcastIntent);
         // Cancel the persistent notification.
         mNM.cancel(NOTIFICATION);
 
         // Tell the user we stopped.
-        Toast.makeText(this, R.string.local_service_stopped, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, R.string.local_service_stopped, Toast.LENGTH_SHORT).show();
         Log.i("onDestroy", "Service  distroy");
-        ACTION_STATUS="onDestroy";
-        if(mReceiver!=null)
+        ACTION_STATUS = "onDestroy";
+        if (mReceiver != null)
             unregisterReceiver(mReceiver);
-        Intent broadcastIntent = new Intent(".RestartSensor");
-        sendBroadcast(broadcastIntent);
+        if (br != null) unregisterReceiver(br);
     }
     private void showNotification() {
         // In this sample, we'll use the same text for the ticker and the expanded notification
@@ -116,7 +131,7 @@ public class TimingService extends Service {
                     PhoneStateListener.LISTEN_CALL_STATE
             );
         }
-        MainAppWidget.SetText("Crerate Phone Listner " + GetCurrentTime.GetTime(), Color.GREEN);
+        //MainAppWidget.SetText("Crerate Phone Listner " + GetCurrentTime.GetTime(), Color.GREEN);
         LocationManager locationManager;
         boolean isGPSEnabled = false;
         location = null; // location
@@ -274,5 +289,4 @@ public class TimingService extends Service {
             Log.i("getVoulumeP", e.getMessage());
             return  0;}
     }
-
 }

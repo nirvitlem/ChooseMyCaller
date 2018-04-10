@@ -25,7 +25,7 @@
         android:selectAllOnFocus="true"
         android:text="@string/appwidget_text"
         android:textColor="#ffffff"
-        android:textSize="18sp"
+        android:textSize="24sp"
         android:textStyle="bold|italic" />
 
     <TextView
