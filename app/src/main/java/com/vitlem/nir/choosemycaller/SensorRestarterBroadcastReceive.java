@@ -8,7 +8,7 @@ import android.util.Log;
 public class SensorRestarterBroadcastReceive extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
-        Log.i(SensorRestarterBroadcastReceive.class.getSimpleName(), "Service Stops! Oooooooooooooppppssssss!!!!");
+        Log.i(SensorRestarterBroadcastReceive.class.getSimpleName(), "Service Stops");
         context.startService(new Intent(context, TimingService.class));;
     }
 }

@@ -61,7 +61,7 @@ public class TimingService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.i("LocalService", "Received start id " + startId + ": " + intent);
         //MainAppWidget.SetText(String.valueOf( startId)+ " " + GetCurrentTime.GetTime(),Color.GREEN);
-        //Start();
+        Start();
 
         return START_NOT_STICKY;
     }
@@ -77,7 +77,7 @@ public class TimingService extends Service {
         ACTION_STATUS="onDestroy";
         if(mReceiver!=null)
             unregisterReceiver(mReceiver);
-        Intent broadcastIntent = new Intent("SensorRestarterBroadcastReceive");
+        Intent broadcastIntent = new Intent(".RestartSensor");
         sendBroadcast(broadcastIntent);
     }
     private void showNotification() {
