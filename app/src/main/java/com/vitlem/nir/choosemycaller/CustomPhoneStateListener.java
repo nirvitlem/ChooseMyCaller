@@ -41,14 +41,17 @@ public class CustomPhoneStateListener extends PhoneStateListener {
 
                 if (MainAppWidget.listItems != null) {
                     for (String item : MainAppWidget.listItems) {
-                        MainAppWidget.SetText(incomingNumber + " N " + GetCurrentTime.GetTime(), Color.GRAY);
+                        Log.i("listItems", item.split("#")[0].toString() +" incomming number " + incomingNumber);
                         lastInfo= incomingNumber + " N " + GetCurrentTime.GetTime();
                         if (incomingNumber.equals(item.split("#")[0].toString())) {
                             lastInfo= incomingNumber + " Y " + GetCurrentTime.GetTime();
-                            MainAppWidget.SetText(incomingNumber + " Y " + GetCurrentTime.GetTime(), Color.GREEN);
+                            Log.i("match num", item.split("#")[0].toString() +" incomming number " + incomingNumber);
                             if (item.split("#")[1].toString().equals("0")) TimingService.getVoulumeP(); else TimingService.runGetVolumep();
                         }
                     }
+                    if (lastInfo.contains("y")) MainAppWidget.SetText(incomingNumber + " Y " + GetCurrentTime.GetTime(), Color.GREEN);
+                    else  MainAppWidget.SetText(incomingNumber + " N " + GetCurrentTime.GetTime(), Color.GRAY);
+
                 }
                 //if (incomingNumber.equals("0543205519") || incomingNumber.equals("0506406883") || incomingNumber.equals("0522945298") || incomingNumber.equals("089719890")  ) MyService.runGetVolumep();
 
