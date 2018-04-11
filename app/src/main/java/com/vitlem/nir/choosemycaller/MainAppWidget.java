@@ -27,6 +27,7 @@ public class MainAppWidget extends AppWidgetProvider {
     public static  Context c;
     public static List<String> listItems;
     public static String ClickOnME= "ClickW";
+    public static String ClickOnLog= "ClickL";
 
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                 int appWidgetId) {
@@ -40,6 +41,11 @@ public class MainAppWidget extends AppWidgetProvider {
         intent.setAction(ClickOnME);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, 0);
         views.setOnClickPendingIntent(R.id.ConfigB,pendingIntent);
+
+        intent.setAction(ClickOnLog);
+        pendingIntent = PendingIntent.getBroadcast(context, 0, intent, 0);
+        views.setOnClickPendingIntent(R.id.ConfigL,pendingIntent);
+
         // Instruct the widget manager to update the widget
         appWidgetManager.updateAppWidget(appWidgetId, views);
     }
@@ -92,6 +98,16 @@ public class MainAppWidget extends AppWidgetProvider {
             context.startActivity(newIntent);
 
         }
+
+        if (intent.getAction().equals(ClickOnLog)) {
+            Log.d("onReceive", "ClickOnLog");
+
+            Intent newIntent = new Intent(Intent.ACTION_VIEW);
+            newIntent.setClassName("com.vitlem.nir.choosemycaller","com.vitlem.nir.choosemycaller.ListLog");
+            newIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(newIntent);
+
+        }
     }
 
     @Override
@@ -130,7 +146,7 @@ public class MainAppWidget extends AppWidgetProvider {
         appWidgetManager.updateAppWidget(appWidgetIds, views);
     }
 
-    public static void SetTextinfo(String t)
+  /*  public static void SetTextinfo(String t)
     {
         views.setTextViewText(R.id.textinfo, t);
 
@@ -139,9 +155,9 @@ public class MainAppWidget extends AppWidgetProvider {
         int[] appWidgetIds = appWidgetManager.getAppWidgetIds(thisAppWidget);
 
         appWidgetManager.updateAppWidget(appWidgetIds, views);
-    }
+    }*/
 
-    public static void  setTextInfoColor(int co)
+  /*  public static void  setTextInfoColor(int co)
     {
 
         views.setTextColor(R.id.textinfo,co);
@@ -151,7 +167,7 @@ public class MainAppWidget extends AppWidgetProvider {
 
         appWidgetManager.updateAppWidget(appWidgetIds, views);
     }
-
+*/
     public static void LoadNumbers()
     {
         if (c!=null) listItems= SaveLoadRecords.loadTitlePref(c,1);

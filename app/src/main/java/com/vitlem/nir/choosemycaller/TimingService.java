@@ -7,7 +7,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationManager;
 import android.media.AudioManager;
@@ -178,11 +177,11 @@ public class TimingService extends JobIntentService {
                         Log.d("latitude", String.valueOf(latitude) + " TimeUpdate  " + Calendar.getInstance().getTime());
                         Log.d("longitude", String.valueOf(longitude) + " TimeUpdate  " + Calendar.getInstance().getTime());
                         //view.setInt(R.layout.main_app_widget,"setBackgroundColor", Color.GREEN);
-                        if (GPSorN) {
+                      /*  if (GPSorN) {
                             MainAppWidget.setTextInfoColor(Color.GREEN);
                         } else {
                             MainAppWidget.setTextInfoColor(Color.MAGENTA);
-                        }
+                        }*/
 
                       /*  Location lb= new Location("point B");
                         lb.setLatitude(xLoc);
@@ -192,22 +191,23 @@ public class TimingService extends JobIntentService {
                         StatusM = "Lat " + latitude + " \nLon " + longitude;
                     } else {
                         StatusM = "Location is Null";
-                        MainAppWidget.setTextInfoColor(Color.RED);
+                        //MainAppWidget.setTextInfoColor(Color.RED);
                         //view.setInt(R.layout.main_app_widget,"setBackgroundColor", Color.RED);
                     }
                 }
             } else {
                 StatusM = "Location Manager is Null";
-                MainAppWidget.setTextInfoColor(Color.RED);
+               // MainAppWidget.setTextInfoColor(Color.RED);
                 //view.setInt(R.layout.main_app_widget,"setBackgroundColor", Color.RED);
             }
         } else {
 
             StatusM = "GPS Is not Enabled";
-            MainAppWidget.setTextInfoColor(Color.RED);
+           // MainAppWidget.setTextInfoColor(Color.RED);
             //view.setInt(R.layout.main_app_widget,"setBackgroundColor", Color.RED);
         }
-        MainAppWidget.SetTextinfo(StatusM + " \n " + " \nTimeUpdate  " + GetCurrentTime.GetTime());
+        ListLog.addtolist(StatusM +" "+ GetCurrentTime.GetTime());
+        //MainAppWidget.SetTextinfo(StatusM + " \nTimeUpdate  " + GetCurrentTime.GetTime());
 
     }
 

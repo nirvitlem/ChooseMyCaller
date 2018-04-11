@@ -8,11 +8,10 @@
 
     <TextView
         android:id="@+id/appwidget_text"
-        android:layout_width="306dp"
-        android:layout_height="150dp"
+        android:layout_width="281dp"
+        android:layout_height="115dp"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="34dp"
+        android:layout_toStartOf="@+id/ConfigB"
         android:allowUndo="true"
         android:background="#09C"
         android:clickable="true"
@@ -28,33 +27,21 @@
         android:textSize="18sp"
         android:textStyle="bold|italic" />
 
-    <TextView
-        android:id="@+id/textinfo"
-        android:layout_width="306dp"
-        android:layout_height="150dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="193dp"
-        android:allowUndo="true"
-        android:background="#09C"
-        android:clickable="true"
-        android:contextClickable="true"
-        android:cursorVisible="true"
-        android:isScrollContainer="true"
-        android:scrollHorizontally="true"
-        android:scrollbars="horizontal|vertical"
-        android:selectAllOnFocus="true"
-        android:text="Info"
-        android:textColor="#ffffff"
-        android:textSize="18sp"
-        android:textStyle="bold|italic" />
-
     <Button
         android:id="@+id/ConfigB"
-        style="@style/Widget.AppCompat.Button.Borderless"
+        style="@style/Widget.AppCompat.Button.Borderless.Colored"
         android:layout_width="38dp"
         android:layout_height="28dp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
         android:text="c" />
+
+    <Button
+        android:id="@+id/ConfigL"
+        style="@style/Widget.AppCompat.Button.Borderless.Colored"
+        android:layout_width="38dp"
+        android:layout_height="28dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:text="L" />
 </RelativeLayout>
