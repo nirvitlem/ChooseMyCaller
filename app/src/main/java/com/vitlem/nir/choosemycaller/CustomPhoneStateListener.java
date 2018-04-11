@@ -30,8 +30,9 @@ public class CustomPhoneStateListener extends PhoneStateListener {
         switch (state) {
             case TelephonyManager.CALL_STATE_IDLE:
 
-                ListLog.addtolist("CALL_STATE_IDLE \n* " + lastInfo + " * " + GetCurrentTime.GetTime());
                 MainAppWidget.SetText("CALL_STATE_IDLE \n * " + lastInfo + " * " + GetCurrentTime.GetTime(),Color.GREEN);
+                ListLog.addtolist("CALL_STATE_IDLE \n* " + lastInfo + " * " + GetCurrentTime.GetTime());
+
                 Log.i(LOG_TAG, "onCallStateChanged: CALL_STATE_IDLE");
                 TimingService.StopPalyPlayer();
                 break;
@@ -46,7 +47,7 @@ public class CustomPhoneStateListener extends PhoneStateListener {
                         Log.i("listItems", item.split("#")[0].toString() +" incomming number " + incomingNumber);
                         lastInfo=  incomingNumber + " N " + GetCurrentTime.GetTime();
                         if (incomingNumber.equals(item.split("#")[0].toString())) {
-                            lastInfo= lastInfo + "\n" +incomingNumber + " Y " + GetCurrentTime.GetTime();
+                            lastInfo= incomingNumber + " Y " + GetCurrentTime.GetTime();
                             Log.i("match num", item.split("#")[0].toString() +" incomming number " + incomingNumber);
                             if (item.split("#")[1].toString().equals("0")) TimingService.getVoulumeP(); else TimingService.runGetVolumep();
                         }
@@ -58,8 +59,9 @@ public class CustomPhoneStateListener extends PhoneStateListener {
                     }
                     else
                     {
-                        ListLog.addtolist(incomingNumber + " N " + GetCurrentTime.GetTime());
                         MainAppWidget.SetText(incomingNumber + " N " + GetCurrentTime.GetTime(), Color.GRAY);
+                        ListLog.addtolist(incomingNumber + " N " + GetCurrentTime.GetTime());
+
                     }
 
                 }
