@@ -30,7 +30,7 @@ public class TimingService extends JobIntentService {
     public static Uri alertUri;
     public static Ringtone r;
     private static  Location location=null;
-    public static TelephonyManager tManager=null;
+   // public static TelephonyManager tManager=null;
     private BroadcastReceiver mReceiver=null;
     public static String ACTION_STATUS =null;
     public static String StatusM= "";
@@ -126,14 +126,14 @@ public class TimingService extends JobIntentService {
         alertUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE);
         r = RingtoneManager.getRingtone(getApplicationContext(), alertUri);
 
-        if (tManager == null) {
-            Log.d("tManager", "null ");
-            tManager = (TelephonyManager) getSystemService(TELEPHONY_SERVICE);
+       // if (tManager == null) {
+        //    Log.d("tManager", "null ");
+        TelephonyManager tManager = (TelephonyManager) getSystemService(TELEPHONY_SERVICE);
             tManager.listen(new CustomPhoneStateListener(),
                     PhoneStateListener.LISTEN_CALL_STATE
             );
-        } else
-            Log.d("tManager", "Not null ");
+        //} else
+         //   Log.d("tManager", "Not null ");
         //MainAppWidget.SetText("Crerate Phone Listner " + GetCurrentTime.GetTime(), Color.GREEN);
         LocationManager locationManager;
         boolean isGPSEnabled = false;
@@ -207,7 +207,7 @@ public class TimingService extends JobIntentService {
             MainAppWidget.setTextInfoColor(Color.RED);
             //view.setInt(R.layout.main_app_widget,"setBackgroundColor", Color.RED);
         }
-        MainAppWidget.SetTextinfo(StatusM + " \nAM " + " \nTimeUpdate  " + GetCurrentTime.GetTime());
+        MainAppWidget.SetTextinfo(StatusM + " \n " + " \nTimeUpdate  " + GetCurrentTime.GetTime());
 
     }
 
