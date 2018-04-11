@@ -51,7 +51,7 @@ public class CustomPhoneStateListener extends PhoneStateListener {
                             if (item.split("#")[1].toString().equals("0")) TimingService.getVoulumeP(); else TimingService.runGetVolumep();
                         }
                     }
-                    if (lastInfo.contains("y"))
+                    if (lastInfo.contains("Y"))
                     {
                         MainAppWidget.SetText(incomingNumber + " Y " + GetCurrentTime.GetTime(), Color.GREEN);
                         ListLog.addtolist(incomingNumber + " Y " + GetCurrentTime.GetTime());
