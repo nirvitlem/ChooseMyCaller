@@ -72,6 +72,12 @@ public class MainAppWidgetConfigureActivity extends Activity {
             findViewById(R.id.A_button).setOnClickListener(mOnClickAddListener);
             findViewById(R.id.S_button).setOnClickListener(mOnClickSListener);
             findViewById(R.id.D_button).setOnClickListener(mOnClickDListener);
+
+            findViewById(R.id.editText_T).setOnClickListener(mOnClickTListener);
+            findViewById(R.id.editText_X).setOnClickListener(mOnClickTListener);
+            findViewById(R.id.editText_Y).setOnClickListener(mOnClickTListener);
+            findViewById(R.id.DisFromPT).setOnClickListener(mOnClickTListener);
+
             lv = (ListView) findViewById(R.id.L_VIEW);
             lv.setOnItemClickListener(mOnClicklListener);
             adapter = new ArrayAdapter<String>(this, android.R.layout.simple_expandable_list_item_1, listItems);
@@ -122,6 +128,17 @@ public class MainAppWidgetConfigureActivity extends Activity {
 
         }
     };
+
+    View.OnClickListener mOnClickTListener = new View.OnClickListener() {
+        public void onClick(View v) {
+            final Context context = MainAppWidgetConfigureActivity.this;
+            TextView t = (TextView) findViewById(v.getId());
+            t.setText("");
+            AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
+            MainAppWidget.updateAppWidget(context, appWidgetManager, mAppWidgetId);
+        }
+    };
+
 
     View.OnClickListener mOnClickAddListener = new View.OnClickListener() {
         public void onClick(View v) {
