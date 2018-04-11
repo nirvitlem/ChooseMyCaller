@@ -14,8 +14,10 @@
         android:clickable="true"
         android:clipChildren="true"
         android:contextClickable="true"
+        android:layoutDirection="ltr"
         android:scrollbarAlwaysDrawVerticalTrack="true"
         android:scrollingCache="true"
-        tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="8dp" />
+        android:textDirection="ltr"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp" />
 </android.support.constraint.ConstraintLayout>

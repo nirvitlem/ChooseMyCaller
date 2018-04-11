@@ -30,7 +30,7 @@ public class CustomPhoneStateListener extends PhoneStateListener {
         switch (state) {
             case TelephonyManager.CALL_STATE_IDLE:
 
-                ListLog.addtolist("CALL_STATE_IDLE \n * " + lastInfo + " * " + GetCurrentTime.GetTime());
+                ListLog.addtolist("CALL_STATE_IDLE \n* " + lastInfo + " * " + GetCurrentTime.GetTime());
                 MainAppWidget.SetText("CALL_STATE_IDLE \n * " + lastInfo + " * " + GetCurrentTime.GetTime(),Color.GREEN);
                 Log.i(LOG_TAG, "onCallStateChanged: CALL_STATE_IDLE");
                 TimingService.StopPalyPlayer();
@@ -44,7 +44,7 @@ public class CustomPhoneStateListener extends PhoneStateListener {
                 if (MainAppWidget.listItems != null) {
                     for (String item : MainAppWidget.listItems) {
                         Log.i("listItems", item.split("#")[0].toString() +" incomming number " + incomingNumber);
-                        lastInfo= lastInfo + "\n" + incomingNumber + " N " + GetCurrentTime.GetTime();
+                        lastInfo=  incomingNumber + " N " + GetCurrentTime.GetTime();
                         if (incomingNumber.equals(item.split("#")[0].toString())) {
                             lastInfo= lastInfo + "\n" +incomingNumber + " Y " + GetCurrentTime.GetTime();
                             Log.i("match num", item.split("#")[0].toString() +" incomming number " + incomingNumber);
