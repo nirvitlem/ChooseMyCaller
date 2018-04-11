@@ -207,7 +207,7 @@ public class TimingService extends JobIntentService {
             //view.setInt(R.layout.main_app_widget,"setBackgroundColor", Color.RED);
         }
         ListLog.addtolist(StatusM +" "+ GetCurrentTime.GetTime());
-        //MainAppWidget.SetTextinfo(StatusM + " \nTimeUpdate  " + GetCurrentTime.GetTime());
+       // MainAppWidget.SetText(StatusM + " \nTimeUpdate  " + GetCurrentTime.GetTime(), Color.GREEN);
 
     }
 
