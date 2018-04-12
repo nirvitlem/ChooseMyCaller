@@ -28,7 +28,7 @@ public class ListLog extends Activity {
     static void addtolist(String l)
     {
         if(la==null) la=new ArrayList();
-        la.add(0,String.valueOf(index) + ":" +l);
+        la.add(0,String.valueOf(index++) + ":" +l);
         if (la.size()>100)
         {
             la.remove(100);

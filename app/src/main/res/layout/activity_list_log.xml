@@ -10,7 +10,6 @@
         android:id="@+id/ListLog"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="#f4b9b9"
         android:clickable="true"
         android:clipChildren="true"
         android:contextClickable="true"
