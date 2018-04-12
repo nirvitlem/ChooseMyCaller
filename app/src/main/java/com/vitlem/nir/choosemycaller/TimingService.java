@@ -29,7 +29,7 @@ public class TimingService extends JobIntentService {
     public static Uri alertUri;
     public static Ringtone r;
     private static  Location location=null;
-   // public static TelephonyManager tManager=null;
+    public static TelephonyManager tManager;
     private BroadcastReceiver mReceiver=null;
     public static String ACTION_STATUS =null;
     public static String StatusM= "";
@@ -53,6 +53,7 @@ public class TimingService extends JobIntentService {
 
     @Override
     public void onCreate() {
+        ListLog.addtolist("onCreate Service Stop " + GetCurrentTime.GetTime());
         mNM = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
         startForeground(1,new Notification());
         // Display a notification about us starting.  We put an icon in the status bar.
@@ -67,13 +68,15 @@ public class TimingService extends JobIntentService {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        ListLog.addtolist("onStartCommand Service Stop " + GetCurrentTime.GetTime());
         Log.i("LocalService", "Received start id " + startId + ": " + intent);
         br= new SensorRestarterBroadcastReceive();
         screenStateFilter =new IntentFilter();
         screenStateFilter.addAction((".RestartSensor"));
         registerReceiver(br,screenStateFilter);
         //MainAppWidget.SetText(String.valueOf( startId)+ " " + GetCurrentTime.GetTime(),Color.GREEN);
-        Start();
+        startForeground(1,new Notification());
+        //Start();
 
         return START_NOT_STICKY;
     }
@@ -81,6 +84,7 @@ public class TimingService extends JobIntentService {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        ListLog.addtolist("Service Stop " + GetCurrentTime.GetTime());
         Intent broadcastIntent = new Intent(".RestartSensor");
         sendBroadcast(broadcastIntent);
         // Cancel the persistent notification.
@@ -127,10 +131,17 @@ public class TimingService extends JobIntentService {
 
        // if (tManager == null) {
         //    Log.d("tManager", "null ");
-        TelephonyManager tManager = (TelephonyManager) getSystemService(TELEPHONY_SERVICE);
+        try {
+            ListLog.addtolist("Start, Register TelephonyManager " + GetCurrentTime.GetTime());
+            tManager = (TelephonyManager) getSystemService(TELEPHONY_SERVICE);
             tManager.listen(new CustomPhoneStateListener(),
                     PhoneStateListener.LISTEN_CALL_STATE
             );
+        }
+        catch (Exception e)
+        {
+            ListLog.addtolist("Start " + e.getMessage() + " " + GetCurrentTime.GetTime());
+        }
         //} else
          //   Log.d("tManager", "Not null ");
         //MainAppWidget.SetText("Crerate Phone Listner " + GetCurrentTime.GetTime(), Color.GREEN);
