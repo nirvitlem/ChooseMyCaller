@@ -134,11 +134,16 @@ public class TimingService extends JobIntentService {
        // if (tManager == null) {
         //    Log.d("tManager", "null ");
         try {
-            ListLog.addtolist("Start, Register TelephonyManager " + GetCurrentTime.GetTime());
-            tManager = (TelephonyManager) getSystemService(TELEPHONY_SERVICE);
-            tManager.listen(new CustomPhoneStateListener(),
-                    PhoneStateListener.LISTEN_CALL_STATE
-            );
+            if (tManager == null) {
+                ListLog.addtolist("Start, Register TelephonyManager " + GetCurrentTime.GetTime());
+                tManager = (TelephonyManager) getSystemService(TELEPHONY_SERVICE);
+                tManager.listen(new CustomPhoneStateListener(),
+                        PhoneStateListener.LISTEN_CALL_STATE
+                );
+            } else
+            {
+                ListLog.addtolist("Start, No need to Register TelephonyManager " + GetCurrentTime.GetTime());
+            }
         }
         catch (Exception e)
         {
