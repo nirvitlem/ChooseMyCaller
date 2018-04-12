@@ -8,10 +8,10 @@
 
     <TextView
         android:id="@+id/appwidget_text"
-        android:layout_width="281dp"
-        android:layout_height="115dp"
-        android:layout_alignParentTop="true"
-        android:layout_toStartOf="@+id/ConfigB"
+        android:layout_width="179dp"
+        android:layout_height="69dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/ConfigB"
         android:allowUndo="true"
         android:background="#09C"
         android:clickable="true"
@@ -19,6 +19,7 @@
         android:contextClickable="true"
         android:cursorVisible="true"
         android:isScrollContainer="true"
+        android:layoutDirection="ltr"
         android:scrollHorizontally="true"
         android:scrollbars="horizontal|vertical"
         android:selectAllOnFocus="true"
@@ -32,8 +33,9 @@
         style="@style/Widget.AppCompat.Button.Borderless.Colored"
         android:layout_width="38dp"
         android:layout_height="28dp"
-        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
+        android:layout_marginStart="70dp"
         android:text="c" />
 
     <Button
@@ -44,4 +46,14 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:text="L" />
+
+    <Button
+        android:id="@+id/ConfigR"
+        style="@style/Widget.AppCompat.Button.Borderless.Colored"
+        android:layout_width="38dp"
+        android:layout_height="28dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="140dp"
+        android:text="R" />
 </RelativeLayout>

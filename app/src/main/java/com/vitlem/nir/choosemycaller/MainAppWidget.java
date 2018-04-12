@@ -28,6 +28,7 @@ public class MainAppWidget extends AppWidgetProvider {
     public static List<String> listItems;
     public static String ClickOnME= "ClickW";
     public static String ClickOnLog= "ClickL";
+    public static String ClickOnRes="ClickOnRes";
 
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                 int appWidgetId) {
@@ -46,6 +47,9 @@ public class MainAppWidget extends AppWidgetProvider {
         pendingIntent = PendingIntent.getBroadcast(context, 0, intent, 0);
         views.setOnClickPendingIntent(R.id.ConfigL,pendingIntent);
 
+        intent.setAction(ClickOnRes);
+        pendingIntent = PendingIntent.getBroadcast(context, 0, intent, 0);
+        views.setOnClickPendingIntent(R.id.ConfigR,pendingIntent);
         // Instruct the widget manager to update the widget
         appWidgetManager.updateAppWidget(appWidgetId, views);
     }
@@ -106,6 +110,25 @@ public class MainAppWidget extends AppWidgetProvider {
             newIntent.setClassName("com.vitlem.nir.choosemycaller","com.vitlem.nir.choosemycaller.ListLog");
             newIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(newIntent);
+
+        }
+
+        if (intent.getAction().equals(ClickOnRes)) {
+            Log.d("onReceive", "ClickOnRes");
+
+            TimingService.tManager =null;
+            m = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+
+            TIME = Calendar.getInstance();
+            TIME.set(Calendar.MINUTE, 0);
+            TIME.set(Calendar.SECOND, 0);
+            TIME.set(Calendar.MILLISECOND, 0);
+
+            i = new Intent(context, TimingService.class);
+
+            service = null;
+            service = PendingIntent.getService(context, 0, i, PendingIntent.FLAG_CANCEL_CURRENT);
+            m.setRepeating(AlarmManager.RTC, TIME.getTime().getTime(), 180 * 1000, service); //180 second
 
         }
     }
