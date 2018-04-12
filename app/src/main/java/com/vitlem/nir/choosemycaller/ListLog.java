@@ -8,7 +8,7 @@ import android.widget.ListView;
 import java.util.ArrayList;
 
 public class ListLog extends Activity {
-
+    static  int index;
     ListView lv;
     static ArrayList<String> la;
     static  ArrayAdapter<String> adapter;
@@ -16,6 +16,7 @@ public class ListLog extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        index = 0;
         setContentView(R.layout.activity_list_log);
         if(la==null) la=new ArrayList();
         lv = (ListView)findViewById(R.id.ListLog) ;
@@ -27,7 +28,7 @@ public class ListLog extends Activity {
     static void addtolist(String l)
     {
         if(la==null) la=new ArrayList();
-        la.add(0,l);
+        la.add(0,String.valueOf(index) + ":" +l);
         if (la.size()>100)
         {
             la.remove(100);
