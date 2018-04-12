@@ -128,6 +128,8 @@ public class MainAppWidget extends AppWidgetProvider {
 
             service = null;
             service = PendingIntent.getService(context, 0, i, PendingIntent.FLAG_CANCEL_CURRENT);
+            m.setRepeating(AlarmManager.RTC, TIME.getTime().getTime(), 1 * 1, service); //180 second
+
             m.setRepeating(AlarmManager.RTC, TIME.getTime().getTime(), 180 * 1000, service); //180 second
 
         }
@@ -160,13 +162,19 @@ public class MainAppWidget extends AppWidgetProvider {
 
     public static void SetText(String t,int co)
     {
-        views.setTextViewText(R.id.appwidget_text, t);
-        views.setTextColor(R.id.appwidget_text,co);
-        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(c);
-        ComponentName thisAppWidget = new ComponentName(c.getPackageName(), MainAppWidget.class.getName());
-        int[] appWidgetIds = appWidgetManager.getAppWidgetIds(thisAppWidget);
+        try {
+            views.setTextViewText(R.id.appwidget_text, t);
+            views.setTextColor(R.id.appwidget_text, co);
+            AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(c);
+            ComponentName thisAppWidget = new ComponentName(c.getPackageName(), MainAppWidget.class.getName());
+            int[] appWidgetIds = appWidgetManager.getAppWidgetIds(thisAppWidget);
 
-        appWidgetManager.updateAppWidget(appWidgetIds, views);
+            appWidgetManager.updateAppWidget(appWidgetIds, views);
+        }
+        catch(Exception e)
+        {
+            ListLog.addtolist("SetText " + e.getMessage() + " " + GetCurrentTime.GetTime());
+        }
     }
 
   /*  public static void SetTextinfo(String t)

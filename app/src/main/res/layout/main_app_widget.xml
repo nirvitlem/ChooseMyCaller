@@ -1,15 +1,16 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/relativeLayout"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     android:background="#09C"
+    android:layoutDirection="ltr"
     android:padding="@dimen/widget_margin">
 
     <TextView
         android:id="@+id/appwidget_text"
         android:layout_width="179dp"
-        android:layout_height="69dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/ConfigB"
         android:allowUndo="true"
@@ -25,7 +26,7 @@
         android:selectAllOnFocus="true"
         android:text="@string/appwidget_text"
         android:textColor="#ffffff"
-        android:textSize="18sp"
+        android:textSize="8sp"
         android:textStyle="bold|italic" />
 
     <Button
@@ -36,7 +37,9 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginStart="70dp"
-        android:text="c" />
+        android:text="c"
+        android:textColor="@android:color/black"
+        android:textSize="8sp" />
 
     <Button
         android:id="@+id/ConfigL"
@@ -45,7 +48,9 @@
         android:layout_height="28dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:text="L" />
+        android:text="L"
+        android:textColor="@android:color/black"
+        android:textSize="8sp" />
 
     <Button
         android:id="@+id/ConfigR"
@@ -55,5 +60,7 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginStart="140dp"
-        android:text="R" />
+        android:text="R"
+        android:textColor="@android:color/black"
+        android:textSize="8sp" />
 </RelativeLayout>
