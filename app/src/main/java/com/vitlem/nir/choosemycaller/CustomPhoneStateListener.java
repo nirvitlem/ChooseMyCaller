@@ -79,7 +79,7 @@ public class CustomPhoneStateListener extends PhoneStateListener {
                 TimingService.StopPalyPlayer();
                 break;
         }
-        if (TimingService.tManager!=null) {
+        if (TimingService.tManager==null) {
             try
 
             {

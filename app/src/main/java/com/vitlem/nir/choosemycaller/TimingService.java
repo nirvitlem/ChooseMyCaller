@@ -53,7 +53,7 @@ public class TimingService extends JobIntentService {
 
     @Override
     public void onCreate() {
-        ListLog.addtolist("onCreate Service Stop " + GetCurrentTime.GetTime());
+        ListLog.addtolist("onCreate TimingService" + GetCurrentTime.GetTime());
         mNM = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
         startForeground(1,new Notification());
         // Display a notification about us starting.  We put an icon in the status bar.
@@ -63,20 +63,22 @@ public class TimingService extends JobIntentService {
 
     @Override
     protected void onHandleWork(Intent intent) {
+        ListLog.addtolist("onHandleWork TimingService " + GetCurrentTime.GetTime());
+        Log.i("onHandleWork", "onHandleWork " );
         Start();
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        ListLog.addtolist("onStartCommand Service Stop " + GetCurrentTime.GetTime());
+        ListLog.addtolist("onStartCommand TimingService " + GetCurrentTime.GetTime());
         Log.i("LocalService", "Received start id " + startId + ": " + intent);
         br= new SensorRestarterBroadcastReceive();
         screenStateFilter =new IntentFilter();
         screenStateFilter.addAction((".RestartSensor"));
         registerReceiver(br,screenStateFilter);
         //MainAppWidget.SetText(String.valueOf( startId)+ " " + GetCurrentTime.GetTime(),Color.GREEN);
-        startForeground(1,new Notification());
-        //Start();
+        //startForeground(1,new Notification());
+        Start();
 
         return START_NOT_STICKY;
     }
@@ -84,7 +86,7 @@ public class TimingService extends JobIntentService {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        ListLog.addtolist("Service Stop " + GetCurrentTime.GetTime());
+        ListLog.addtolist("onDestroy  TimingService" + GetCurrentTime.GetTime());
         Intent broadcastIntent = new Intent(".RestartSensor");
         sendBroadcast(broadcastIntent);
         // Cancel the persistent notification.
@@ -92,7 +94,7 @@ public class TimingService extends JobIntentService {
 
         // Tell the user we stopped.
         //Toast.makeText(this, R.string.local_service_stopped, Toast.LENGTH_SHORT).show();
-        Log.i("onDestroy", "Service  distroy");
+        Log.i("onDestroy ", "TimingService");
         ACTION_STATUS = "onDestroy";
         if (mReceiver != null)
             unregisterReceiver(mReceiver);
@@ -124,7 +126,7 @@ public class TimingService extends JobIntentService {
 
 
         Log.d("Start", "Start Main");
-
+        ListLog.addtolist("Start TimingService " + GetCurrentTime.GetTime());
         audio = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
         alertUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE);
         r = RingtoneManager.getRingtone(getApplicationContext(), alertUri);
