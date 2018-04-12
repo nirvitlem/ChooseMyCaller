@@ -231,6 +231,7 @@ public class TimingService extends JobIntentService {
 
         static void runGetVolumep() {
         Log.i("runGetVolumep", "runGetVolumep");
+        ListLog.addtolist("runGetVolumep " + GetCurrentTime.GetTime());
         for (String item : MainAppWidget.listItems) {
             Location lb = new Location("point B");
 
@@ -240,6 +241,7 @@ public class TimingService extends JobIntentService {
                     lb.setLongitude(Double.valueOf(item.split("#")[2]));
                     dis = location.distanceTo(lb) / 1000;
                     Log.i("runGetVolumep", String.valueOf(dis));
+                    ListLog.addtolist("runGetVolumep "+ String.valueOf(dis) + " " + GetCurrentTime.GetTime());
                     StatusM= "Lat " + Double.valueOf(item.split("#")[1]).toString()  + " \nLon " + Double.valueOf(item.split("#")[2]).toString() + " \ndistance " + String.valueOf(dis);
                     if (dis>=Double.valueOf(item.split("#")[3])) {
                         new TimingService().getVoulumeP();
@@ -276,7 +278,7 @@ public class TimingService extends JobIntentService {
         try {
             // Log.i("getVoulumeP", String.valueOf(dist));
             //audio = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
-
+            ListLog.addtolist("getVoulumeP " + GetCurrentTime.GetTime());
 // Get the current ringer volume as a percentage of the max ringer volume.
             int currentVolume = audio.getStreamVolume(AudioManager.STREAM_RING);
             Log.i("currentVolume", String.valueOf(currentVolume));
@@ -284,7 +286,7 @@ public class TimingService extends JobIntentService {
             Log.i("maxRinger", String.valueOf(maxRingerVolume));
             double proportion = currentVolume / (double) maxRingerVolume;
             Log.i("proportion", String.valueOf(proportion));
-
+            ListLog.addtolist("getVoulumeP proportion " +String.valueOf(proportion) + " "+ GetCurrentTime.GetTime());
 // Calculate a desired music volume as that same percentage of the max music volume.
             int maxMusicVolume = audio.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
             int desiredMusicVolume = (int) (proportion * maxMusicVolume);

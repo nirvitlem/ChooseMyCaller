@@ -49,7 +49,14 @@ public class CustomPhoneStateListener extends PhoneStateListener {
                         if (incomingNumber.equals(item.split("#")[0].toString())) {
                             lastInfo= incomingNumber + " Y " + GetCurrentTime.GetTime();
                             Log.i("match num", item.split("#")[0].toString() +" incomming number " + incomingNumber);
-                            if (item.split("#")[1].toString().equals("0")) TimingService.getVoulumeP(); else TimingService.runGetVolumep();
+                            if (item.split("#")[1].toString().equals("0"))
+                            {
+
+                                TimingService.getVoulumeP();
+                            } else
+                            {
+                                TimingService.runGetVolumep();
+                            }
                         }
                     }
                     if (lastInfo.contains("Y"))
