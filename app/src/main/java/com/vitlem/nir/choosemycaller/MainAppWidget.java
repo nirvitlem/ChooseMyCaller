@@ -75,7 +75,7 @@ public class MainAppWidget extends AppWidgetProvider {
             service = PendingIntent.getService(context, 0, i, PendingIntent.FLAG_CANCEL_CURRENT);
         }
 
-        m.setRepeating(AlarmManager.RTC, TIME.getTime().getTime(), 180 * 1000, service); //180 second
+        m.setRepeating(AlarmManager.RTC, TIME.getTime().getTime(), 300 * 1000, service); //300 second
 
         Log.d("MainAppWidget", "onUpdate");
 
@@ -130,7 +130,7 @@ public class MainAppWidget extends AppWidgetProvider {
             service = PendingIntent.getService(context, 0, i, PendingIntent.FLAG_CANCEL_CURRENT);
             m.setRepeating(AlarmManager.RTC, TIME.getTime().getTime(), 1 * 1, service); //180 second
 
-            m.setRepeating(AlarmManager.RTC, TIME.getTime().getTime(), 180 * 1000, service); //180 second
+            m.setRepeating(AlarmManager.RTC, TIME.getTime().getTime(), 300 * 1000, service); //300 second
 
         }
     }

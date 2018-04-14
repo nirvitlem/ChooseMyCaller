@@ -142,7 +142,7 @@ public class TimingService extends JobIntentService {
                 );
           //  } else
         //    {
-                ListLog.addtolist("Start, No need to Register TelephonyManager " + GetCurrentTime.GetTime());
+        //        ListLog.addtolist("Start, No need to Register TelephonyManager " + GetCurrentTime.GetTime());
         //    }
         }
         catch (Exception e)
