@@ -86,19 +86,19 @@ public class CustomPhoneStateListener extends PhoneStateListener {
                 TimingService.StopPalyPlayer();
                 break;
         }
-        if (MainAppWidget.tManager==null) {
+        MainAppWidget.UnregisterTM();
+        MainAppWidget.registerTM();
+       /* if (MainAppWidget.tManager==null) {
             try
 
             {
                 ListLog.addtolist("tManager is null " + GetCurrentTime.GetTime());
                 ListLog.addtolist("CustomPhone, Register TelephonyManager " + GetCurrentTime.GetTime());
-                MainAppWidget.tManager.listen(new CustomPhoneStateListener(),
-                        PhoneStateListener.LISTEN_CALL_STATE
-                );
+                MainAppWidget.registerTM();
             } catch (Exception e) {
                 ListLog.addtolist(e.getMessage() + " " + GetCurrentTime.GetTime());
             }
-        }
+        }*/
     }
 
 

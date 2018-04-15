@@ -259,13 +259,14 @@ public class TimingService extends JobIntentService {
     static void StopPalyPlayer()
     {
         Log.i("StopPalyPlayer", "StopPalyPlayer");
-        if(r.isPlaying()){
-            Log.i("StopPalyPlayer", "PlayerisPlaying");
-            r.stop();
+        if (r!= null) {
+            if (r.isPlaying()) {
+                Log.i("StopPalyPlayer", "PlayerisPlaying");
+                r.stop();
 
-        }else
-        {
-            Log.i("StopPalyPlayer", "PlayerisNOTPlaying");
+            } else {
+                Log.i("StopPalyPlayer", "PlayerisNOTPlaying");
+            }
         }
     }
 

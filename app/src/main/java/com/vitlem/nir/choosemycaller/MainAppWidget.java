@@ -228,5 +228,25 @@ public class MainAppWidget extends AppWidgetProvider {
             ListLog.addtolist("registerTM " + e.getMessage() + " " + GetCurrentTime.GetTime());
         }
     }
+
+    public static void UnregisterTM()
+    {
+        try {
+            if ( (c!=null)){
+                ListLog.addtolist("UNregisterTM, LISTEN_NONE TelephonyManager " + GetCurrentTime.GetTime());
+                tManager = (TelephonyManager) c.getSystemService(TELEPHONY_SERVICE);
+                tManager.listen(new CustomPhoneStateListener(),
+                        PhoneStateListener.LISTEN_NONE
+                );
+            } else
+            {
+                ListLog.addtolist("UNregisterTM, can not LISTEN_NONE TelephonyManager " + GetCurrentTime.GetTime());
+            }
+        }
+        catch (Exception e)
+        {
+            ListLog.addtolist("UNregisterTM " + e.getMessage() + " " + GetCurrentTime.GetTime());
+        }
+    }
 }
 
