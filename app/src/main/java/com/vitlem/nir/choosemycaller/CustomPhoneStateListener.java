@@ -1,6 +1,7 @@
 package com.vitlem.nir.choosemycaller;
 
 import android.graphics.Color;
+import android.telecom.Call;
 import android.telephony.CellInfo;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
@@ -12,6 +13,7 @@ public class CustomPhoneStateListener extends PhoneStateListener {
 
     public static String LOG_TAG = "PhoneStateListener";
     public static String lastInfo = "";
+    public static  int CallStatus=0;
 
     @Override
     public void onCellInfoChanged(List<CellInfo> cellInfo) {
@@ -29,36 +31,42 @@ public class CustomPhoneStateListener extends PhoneStateListener {
 
         switch (state) {
             case TelephonyManager.CALL_STATE_IDLE:
+                if (CallStatus==1 || CallStatus==2) {
+                    CallStatus = 0;
+                    MainAppWidget.SetText("IDLE " + GetCurrentTime.GetTime() + "\n" + lastInfo, Color.GREEN);
+                    ListLog.addtolist("CALL_STATE_IDLE \n* " + lastInfo + " * " + GetCurrentTime.GetTime());
 
-                MainAppWidget.SetText("IDLE " + GetCurrentTime.GetTime() + "\n" + lastInfo, Color.GREEN);
-                ListLog.addtolist("CALL_STATE_IDLE \n* " + lastInfo + " * " + GetCurrentTime.GetTime());
-
-                Log.i(LOG_TAG, "onCallStateChanged: CALL_STATE_IDLE");
-                TimingService.StopPalyPlayer();
+                    Log.i(LOG_TAG, "onCallStateChanged: CALL_STATE_IDLE");
+                    TimingService.StopPalyPlayer();
+                }
                 break;
             case TelephonyManager.CALL_STATE_RINGING:
-               // MainAppWidget.UnregisterTM();
-                ListLog.addtolist("CALL_STATE_RINGING " + GetCurrentTime.GetTime());
-                Log.i(LOG_TAG, "onCallStateChanged: CALL_STATE_RINGING");
-                Log.i(LOG_TAG, "incomingNumber: " + incomingNumber);
-                MainAppWidget.checkNumver(incomingNumber,lastInfo);//TimingService.runGetVolumep();
-
-
+                if (CallStatus==0) {
+                    // MainAppWidget.UnregisterTM();
+                    ListLog.addtolist("CALL_STATE_RINGING " + GetCurrentTime.GetTime());
+                    Log.i(LOG_TAG, "onCallStateChanged: CALL_STATE_RINGING");
+                    Log.i(LOG_TAG, "incomingNumber: " + incomingNumber);
+                    MainAppWidget.checkNumver(incomingNumber, lastInfo);//TimingService.runGetVolumep();
+                    CallStatus = 1;
+                }
                 //if (incomingNumber.equals("0543205519") || incomingNumber.equals("0506406883") || incomingNumber.equals("0522945298") || incomingNumber.equals("089719890")  ) MyService.runGetVolumep();
 
                 break;
             case TelephonyManager.CALL_STATE_OFFHOOK:
-                ListLog.addtolist("CALL_STATE_OFFHOOK " + GetCurrentTime.GetTime());
-                Log.i(LOG_TAG, "onCallStateChanged: CALL_STATE_OFFHOOK");
-                TimingService.StopPalyPlayer();
-                MainAppWidget.UnregisterTM();
-                // MainAppWidget.UnregisterTM();
-                // MainAppWidget.registerTM();
+                if (CallStatus==1) {
+                    ListLog.addtolist("CALL_STATE_OFFHOOK " + GetCurrentTime.GetTime());
+                    Log.i(LOG_TAG, "onCallStateChanged: CALL_STATE_OFFHOOK");
+                    TimingService.StopPalyPlayer();
+                    //  MainAppWidget.UnregisterTM();
+                    MainAppWidget.UnregisterTM();
+                    // MainAppWidget.registerTM();
+                    CallStatus = 2;
+                }
                 break;
             default:
                 ListLog.addtolist("UNKNOWN_STATE " + GetCurrentTime.GetTime());
                 Log.i(LOG_TAG, "UNKNOWN_STATE: " + state);
-                MainAppWidget.UnregisterTM();
+                //MainAppWidget.UnregisterTM();
                 // MainAppWidget.UnregisterTM();
                 // MainAppWidget.registerTM();
                 break;
