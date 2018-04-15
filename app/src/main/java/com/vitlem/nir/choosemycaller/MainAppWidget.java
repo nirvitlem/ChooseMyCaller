@@ -133,7 +133,7 @@ public class MainAppWidget extends AppWidgetProvider {
             service = null;
             service = PendingIntent.getService(context, 0, i, PendingIntent.FLAG_CANCEL_CURRENT);
             m.setRepeating(AlarmManager.RTC, TIME.getTime().getTime(), 1 * 1, service); //180 second
-
+            m.notify();
             m.setRepeating(AlarmManager.RTC, TIME.getTime().getTime(), 300 * 1000, service); //300 second
 
             registerTM();
@@ -220,7 +220,9 @@ public class MainAppWidget extends AppWidgetProvider {
                 );
             } else
             {
-                ListLog.addtolist("registerTM, No need to Register TelephonyManager " + GetCurrentTime.GetTime());
+                if (tManager!=null) ListLog.addtolist("registerTM,tManager!=null No need to Register TelephonyManager " + GetCurrentTime.GetTime());
+                if (c==null) ListLog.addtolist("registerTM,c==null No need to Register TelephonyManager " + GetCurrentTime.GetTime());
+
             }
         }
         catch (Exception e)
