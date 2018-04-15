@@ -57,6 +57,7 @@ public class CustomPhoneStateListener extends PhoneStateListener {
                             {
                                 TimingService.runGetVolumep();
                             }
+                            break;
                         }
                     }
                     if (lastInfo.contains("Y"))
