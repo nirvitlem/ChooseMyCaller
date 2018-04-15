@@ -86,13 +86,13 @@ public class CustomPhoneStateListener extends PhoneStateListener {
                 TimingService.StopPalyPlayer();
                 break;
         }
-        if (TimingService.tManager==null) {
+        if (MainAppWidget.tManager==null) {
             try
 
             {
                 ListLog.addtolist("tManager is null " + GetCurrentTime.GetTime());
                 ListLog.addtolist("CustomPhone, Register TelephonyManager " + GetCurrentTime.GetTime());
-                TimingService.tManager.listen(new CustomPhoneStateListener(),
+                MainAppWidget.tManager.listen(new CustomPhoneStateListener(),
                         PhoneStateListener.LISTEN_CALL_STATE
                 );
             } catch (Exception e) {
