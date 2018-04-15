@@ -81,7 +81,7 @@ public class MainAppWidget extends AppWidgetProvider {
             service = PendingIntent.getService(context, 0, i, PendingIntent.FLAG_CANCEL_CURRENT);
         }
 
-        m.setRepeating(AlarmManager.RTC, TIME.getTime().getTime(), 300 * 1000, service); //300 second
+        m.setRepeating(AlarmManager.RTC, TIME.getTime().getTime(), 180 * 1000, service); //180 second
 
         Log.d("MainAppWidget", "onUpdate");
         registerTM();
@@ -132,9 +132,9 @@ public class MainAppWidget extends AppWidgetProvider {
 
             service = null;
             service = PendingIntent.getService(context, 0, i, PendingIntent.FLAG_CANCEL_CURRENT);
-            m.setRepeating(AlarmManager.RTC, TIME.getTime().getTime(), 1 * 1, service); //180 second
+            m.setRepeating(AlarmManager.RTC, TIME.getTime().getTime(), 1 * 1, service); //0 second
 
-            m.setRepeating(AlarmManager.RTC, TIME.getTime().getTime(), 300 * 1000, service); //300 second
+            m.setRepeating(AlarmManager.RTC, TIME.getTime().getTime(), 180 * 1000, service); //180 second
 
             registerTM();
         }
@@ -242,6 +242,7 @@ public class MainAppWidget extends AppWidgetProvider {
                 tManager.listen(new CustomPhoneStateListener(),
                         PhoneStateListener.LISTEN_NONE
                 );
+                tManager=null;
             } else
             {
                 ListLog.addtolist("UNregisterTM, can not LISTEN_NONE TelephonyManager " + GetCurrentTime.GetTime());
