@@ -7,11 +7,15 @@ import android.appwidget.AppWidgetProvider;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.telephony.PhoneStateListener;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.widget.RemoteViews;
 
 import java.util.Calendar;
 import java.util.List;
+
+import static android.content.Context.TELEPHONY_SERVICE;
 
 /**
  * Implementation of App Widget functionality.
@@ -29,6 +33,7 @@ public class MainAppWidget extends AppWidgetProvider {
     public static String ClickOnME= "ClickW";
     public static String ClickOnLog= "ClickL";
     public static String ClickOnRes="ClickOnRes";
+    public static TelephonyManager tManager;
 
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                 int appWidgetId) {
@@ -37,6 +42,7 @@ public class MainAppWidget extends AppWidgetProvider {
         views = new RemoteViews(context.getPackageName(), R.layout.main_app_widget);
         views.setTextViewText(R.id.appwidget_text, "Waiting For Call");
         c=context;
+        registerTM();
         listItems= SaveLoadRecords.loadTitlePref(context,1);
         Intent intent = new Intent(context, MainAppWidget.class);
         intent.setAction(ClickOnME);
@@ -78,9 +84,7 @@ public class MainAppWidget extends AppWidgetProvider {
         m.setRepeating(AlarmManager.RTC, TIME.getTime().getTime(), 300 * 1000, service); //300 second
 
         Log.d("MainAppWidget", "onUpdate");
-
-
-       ;
+        registerTM();
 
         for (int appWidgetId : appWidgetIds) {
             updateAppWidget(context, appWidgetManager, appWidgetId);
@@ -116,7 +120,7 @@ public class MainAppWidget extends AppWidgetProvider {
         if (intent.getAction().equals(ClickOnRes)) {
             Log.d("onReceive", "ClickOnRes");
 
-            TimingService.tManager =null;
+            tManager =null;
             m = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 
             TIME = Calendar.getInstance();
@@ -132,6 +136,7 @@ public class MainAppWidget extends AppWidgetProvider {
 
             m.setRepeating(AlarmManager.RTC, TIME.getTime().getTime(), 300 * 1000, service); //300 second
 
+            registerTM();
         }
     }
 
@@ -202,6 +207,26 @@ public class MainAppWidget extends AppWidgetProvider {
     public static void LoadNumbers()
     {
         if (c!=null) listItems= SaveLoadRecords.loadTitlePref(c,1);
+    }
+
+    public static void registerTM()
+    {
+        try {
+            if ((tManager == null) &&  (c!=null)){
+                ListLog.addtolist("registerTM, Register TelephonyManager " + GetCurrentTime.GetTime());
+                tManager = (TelephonyManager) c.getSystemService(TELEPHONY_SERVICE);
+                tManager.listen(new CustomPhoneStateListener(),
+                        PhoneStateListener.LISTEN_CALL_STATE
+                );
+            } else
+            {
+                ListLog.addtolist("registerTM, No need to Register TelephonyManager " + GetCurrentTime.GetTime());
+            }
+        }
+        catch (Exception e)
+        {
+            ListLog.addtolist("registerTM " + e.getMessage() + " " + GetCurrentTime.GetTime());
+        }
     }
 }
 

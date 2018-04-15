@@ -17,8 +17,6 @@ import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.support.v4.app.JobIntentService;
 import android.support.v4.content.ContextCompat;
-import android.telephony.PhoneStateListener;
-import android.telephony.TelephonyManager;
 import android.util.Log;
 
 import java.util.Calendar;
@@ -29,7 +27,7 @@ public class TimingService extends JobIntentService {
     public static Uri alertUri;
     public static Ringtone r;
     private static  Location location=null;
-    public static TelephonyManager tManager;
+    //public static TelephonyManager tManager;
     private BroadcastReceiver mReceiver=null;
     public static String ACTION_STATUS =null;
     public static String StatusM= "";
@@ -134,16 +132,14 @@ public class TimingService extends JobIntentService {
        // if (tManager == null) {
         //    Log.d("tManager", "null ");
         try {
-           // if (tManager == null) {
+            if (MainAppWidget.tManager == null) {
                 ListLog.addtolist("Start, Register TelephonyManager " + GetCurrentTime.GetTime());
-                tManager = (TelephonyManager) getSystemService(TELEPHONY_SERVICE);
-                tManager.listen(new CustomPhoneStateListener(),
-                        PhoneStateListener.LISTEN_CALL_STATE
-                );
-          //  } else
-        //    {
-        //        ListLog.addtolist("Start, No need to Register TelephonyManager " + GetCurrentTime.GetTime());
-        //    }
+                MainAppWidget.registerTM();
+
+           } else
+            {
+                ListLog.addtolist("Start, No need to Register TelephonyManager " + GetCurrentTime.GetTime());
+            }
         }
         catch (Exception e)
         {
