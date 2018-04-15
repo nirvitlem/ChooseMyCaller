@@ -212,7 +212,9 @@ public class MainAppWidget extends AppWidgetProvider {
     public static void registerTM()
     {
         try {
-            if ((tManager == null) &&  (c!=null)){
+            //(tManager == null) &&
+            if ((c!=null)){
+                tManager=null;
                 ListLog.addtolist("registerTM, Register TelephonyManager " + GetCurrentTime.GetTime());
                 tManager = (TelephonyManager) c.getSystemService(TELEPHONY_SERVICE);
                 tManager.listen(new CustomPhoneStateListener(),

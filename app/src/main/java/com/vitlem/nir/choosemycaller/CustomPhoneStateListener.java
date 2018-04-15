@@ -74,12 +74,13 @@ public class CustomPhoneStateListener extends PhoneStateListener {
 
                 }
                 //if (incomingNumber.equals("0543205519") || incomingNumber.equals("0506406883") || incomingNumber.equals("0522945298") || incomingNumber.equals("089719890")  ) MyService.runGetVolumep();
-
+                MainAppWidget.UnregisterTM();
                 break;
             case TelephonyManager.CALL_STATE_OFFHOOK:
                 ListLog.addtolist("CALL_STATE_OFFHOOK " + GetCurrentTime.GetTime());
                 Log.i(LOG_TAG, "onCallStateChanged: CALL_STATE_OFFHOOK");
                 TimingService.StopPalyPlayer();
+                MainAppWidget.registerTM();
                 break;
             default:
                 ListLog.addtolist("UNKNOWN_STATE " + GetCurrentTime.GetTime());
@@ -87,8 +88,7 @@ public class CustomPhoneStateListener extends PhoneStateListener {
                 TimingService.StopPalyPlayer();
                 break;
         }
-        MainAppWidget.UnregisterTM();
-        MainAppWidget.registerTM();
+
        /* if (MainAppWidget.tManager==null) {
             try
 
