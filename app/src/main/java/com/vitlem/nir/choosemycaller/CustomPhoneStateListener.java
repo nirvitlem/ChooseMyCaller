@@ -46,6 +46,7 @@ public class CustomPhoneStateListener extends PhoneStateListener {
                     ListLog.addtolist("CALL_STATE_RINGING " + GetCurrentTime.GetTime());
                     Log.i(LOG_TAG, "onCallStateChanged: CALL_STATE_RINGING");
                     Log.i(LOG_TAG, "incomingNumber: " + incomingNumber);
+                    lastInfo = incomingNumber + " " +GetCurrentTime.GetTime();
                     MainAppWidget.checkNumver(incomingNumber, lastInfo);//TimingService.runGetVolumep();
                     CallStatus = 1;
                 }
@@ -58,7 +59,7 @@ public class CustomPhoneStateListener extends PhoneStateListener {
                     Log.i(LOG_TAG, "onCallStateChanged: CALL_STATE_OFFHOOK");
                     TimingService.StopPalyPlayer();
                     //  MainAppWidget.UnregisterTM();
-                    MainAppWidget.UnregisterTM();
+                    //MainAppWidget.UnregisterTM();
                     // MainAppWidget.registerTM();
                     CallStatus = 2;
                 }
