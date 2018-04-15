@@ -37,11 +37,11 @@ public class CustomPhoneStateListener extends PhoneStateListener {
                 TimingService.StopPalyPlayer();
                 break;
             case TelephonyManager.CALL_STATE_RINGING:
-                MainAppWidget.UnregisterTM();
+               // MainAppWidget.UnregisterTM();
                 ListLog.addtolist("CALL_STATE_RINGING " + GetCurrentTime.GetTime());
                 Log.i(LOG_TAG, "onCallStateChanged: CALL_STATE_RINGING");
                 Log.i(LOG_TAG, "incomingNumber: " + incomingNumber);
-                checkNumver(incomingNumber);//TimingService.runGetVolumep();
+                MainAppWidget.checkNumver(incomingNumber,lastInfo);//TimingService.runGetVolumep();
 
 
                 //if (incomingNumber.equals("0543205519") || incomingNumber.equals("0506406883") || incomingNumber.equals("0522945298") || incomingNumber.equals("089719890")  ) MyService.runGetVolumep();
@@ -51,13 +51,14 @@ public class CustomPhoneStateListener extends PhoneStateListener {
                 ListLog.addtolist("CALL_STATE_OFFHOOK " + GetCurrentTime.GetTime());
                 Log.i(LOG_TAG, "onCallStateChanged: CALL_STATE_OFFHOOK");
                 TimingService.StopPalyPlayer();
-
+                MainAppWidget.UnregisterTM();
                 // MainAppWidget.UnregisterTM();
                 // MainAppWidget.registerTM();
                 break;
             default:
                 ListLog.addtolist("UNKNOWN_STATE " + GetCurrentTime.GetTime());
                 Log.i(LOG_TAG, "UNKNOWN_STATE: " + state);
+                MainAppWidget.UnregisterTM();
                 // MainAppWidget.UnregisterTM();
                 // MainAppWidget.registerTM();
                 break;
@@ -76,34 +77,6 @@ public class CustomPhoneStateListener extends PhoneStateListener {
         }*/
     }
 
-    public void checkNumver(String incomingNumber) {
-        if (MainAppWidget.listItems != null) {
-            for (String item : MainAppWidget.listItems) {
-                Log.i("listItems", item.split("#")[0].toString() + " incomming number " + incomingNumber);
-                lastInfo = incomingNumber + " N " + GetCurrentTime.GetTime();
-                if (incomingNumber.equals(item.split("#")[0].toString())) {
-                    lastInfo = incomingNumber + " Y " + GetCurrentTime.GetTime();
-                    Log.i("match num", item.split("#")[0].toString() + " incomming number " + incomingNumber);
-                    if (item.split("#")[1].toString().equals("0")) {
 
-                        TimingService.getVoulumeP();
-                    } else {
-                        TimingService.runGetVolumep();
-                    }
-                    break;
-                }
-            }
-            if (lastInfo.contains("Y")) {
-                MainAppWidget.SetText(incomingNumber + " Y " + GetCurrentTime.GetTime(), Color.GREEN);
-                ListLog.addtolist(incomingNumber + " Y " + GetCurrentTime.GetTime());
-            } else {
-                MainAppWidget.SetText(incomingNumber + " N " + GetCurrentTime.GetTime(), Color.GRAY);
-                ListLog.addtolist(incomingNumber + " N " + GetCurrentTime.GetTime());
-
-            }
-
-        }
-        MainAppWidget.registerTM();
-    }
 }
 

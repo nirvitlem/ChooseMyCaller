@@ -7,6 +7,7 @@ import android.appwidget.AppWidgetProvider;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 import android.util.Log;
@@ -34,6 +35,7 @@ public class MainAppWidget extends AppWidgetProvider {
     public static String ClickOnLog= "ClickL";
     public static String ClickOnRes="ClickOnRes";
     public static TelephonyManager tManager;
+    public static CustomPhoneStateListener customPhoneStateListener ;
 
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                 int appWidgetId) {
@@ -215,9 +217,10 @@ public class MainAppWidget extends AppWidgetProvider {
             //(tManager == null) &&
             if ((c!=null)){
                 tManager=null;
+                customPhoneStateListener = new CustomPhoneStateListener();
                 ListLog.addtolist("registerTM, Register TelephonyManager " + GetCurrentTime.GetTime());
                 tManager = (TelephonyManager) c.getSystemService(TELEPHONY_SERVICE);
-                tManager.listen(new CustomPhoneStateListener(),
+                tManager.listen(customPhoneStateListener,
                         PhoneStateListener.LISTEN_CALL_STATE
                 );
             } else
@@ -236,13 +239,14 @@ public class MainAppWidget extends AppWidgetProvider {
     public static void UnregisterTM()
     {
         try {
-            if ( (c!=null)){
+            if ( (tManager!=null)){
                 ListLog.addtolist("UNregisterTM, LISTEN_NONE TelephonyManager " + GetCurrentTime.GetTime());
-                tManager = (TelephonyManager) c.getSystemService(TELEPHONY_SERVICE);
-                tManager.listen(new CustomPhoneStateListener(),
+                //tManager = (TelephonyManager) c.getSystemService(TELEPHONY_SERVICE);
+                tManager.listen(customPhoneStateListener,
                         PhoneStateListener.LISTEN_NONE
                 );
-                tManager=null;
+                customPhoneStateListener=null;
+                //tManager=null;
             } else
             {
                 ListLog.addtolist("UNregisterTM, can not LISTEN_NONE TelephonyManager " + GetCurrentTime.GetTime());
@@ -252,6 +256,38 @@ public class MainAppWidget extends AppWidgetProvider {
         {
             ListLog.addtolist("UNregisterTM " + e.getMessage() + " " + GetCurrentTime.GetTime());
         }
+    }
+
+
+    public static void checkNumver(String incomingNumber, String L) {
+        String lastInfo = L;
+        if (listItems != null) {
+            for (String item : listItems) {
+                Log.i("listItems", item.split("#")[0].toString() + " incomming number " + incomingNumber);
+                lastInfo = incomingNumber + " N " + GetCurrentTime.GetTime();
+                if (incomingNumber.equals(item.split("#")[0].toString())) {
+                    lastInfo = incomingNumber + " Y " + GetCurrentTime.GetTime();
+                    Log.i("match num", item.split("#")[0].toString() + " incomming number " + incomingNumber);
+                    if (item.split("#")[1].toString().equals("0")) {
+
+                        TimingService.getVoulumeP();
+                    } else {
+                        TimingService.runGetVolumep();
+                    }
+                    break;
+                }
+            }
+            if (lastInfo.contains("Y")) {
+                SetText(incomingNumber + " Y " + GetCurrentTime.GetTime(), Color.GREEN);
+                ListLog.addtolist(incomingNumber + " Y " + GetCurrentTime.GetTime());
+            } else {
+                SetText(incomingNumber + " N " + GetCurrentTime.GetTime(), Color.GRAY);
+                ListLog.addtolist(incomingNumber + " N " + GetCurrentTime.GetTime());
+
+            }
+
+        }
+      //  registerTM();
     }
 }
 

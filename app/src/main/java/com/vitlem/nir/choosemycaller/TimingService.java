@@ -134,8 +134,8 @@ public class TimingService extends JobIntentService {
         try {
             //if (MainAppWidget.tManager == null) {
              //   ListLog.addtolist("Start, Register TelephonyManager " + GetCurrentTime.GetTime());
-            MainAppWidget.UnregisterTM();
-            MainAppWidget.registerTM();
+          //  MainAppWidget.UnregisterTM();
+          //  MainAppWidget.registerTM();
 
            //} else
             //{
