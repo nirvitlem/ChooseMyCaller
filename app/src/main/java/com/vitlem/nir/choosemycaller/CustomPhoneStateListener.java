@@ -1,7 +1,6 @@
 package com.vitlem.nir.choosemycaller;
 
 import android.graphics.Color;
-import android.telecom.Call;
 import android.telephony.CellInfo;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
@@ -14,6 +13,7 @@ public class CustomPhoneStateListener extends PhoneStateListener {
     public static String LOG_TAG = "PhoneStateListener";
     public static String lastInfo = "";
     public static  int CallStatus=0;
+
 
     @Override
     public void onCellInfoChanged(List<CellInfo> cellInfo) {
@@ -38,6 +38,7 @@ public class CustomPhoneStateListener extends PhoneStateListener {
 
                     Log.i(LOG_TAG, "onCallStateChanged: CALL_STATE_IDLE");
                     TimingService.StopPalyPlayer();
+                    TimingService.getVoulumeP(TimingService.voulume);
                 }
                 break;
             case TelephonyManager.CALL_STATE_RINGING:
@@ -47,7 +48,7 @@ public class CustomPhoneStateListener extends PhoneStateListener {
                     Log.i(LOG_TAG, "onCallStateChanged: CALL_STATE_RINGING");
                     Log.i(LOG_TAG, "incomingNumber: " + incomingNumber);
                     lastInfo = incomingNumber + " " +GetCurrentTime.GetTime();
-                    MainAppWidget.checkNumver(incomingNumber, lastInfo);//TimingService.runGetVolumep();
+                    MainAppWidget.checkNumber(incomingNumber, lastInfo);//TimingService.runGetVolumep();
                     CallStatus = 1;
                 }
                 //if (incomingNumber.equals("0543205519") || incomingNumber.equals("0506406883") || incomingNumber.equals("0522945298") || incomingNumber.equals("089719890")  ) MyService.runGetVolumep();
@@ -58,6 +59,7 @@ public class CustomPhoneStateListener extends PhoneStateListener {
                     ListLog.addtolist("CALL_STATE_OFFHOOK " + GetCurrentTime.GetTime());
                     Log.i(LOG_TAG, "onCallStateChanged: CALL_STATE_OFFHOOK");
                     TimingService.StopPalyPlayer();
+                    TimingService.getVoulumeP(TimingService.voulume);
                     //  MainAppWidget.UnregisterTM();
                     //MainAppWidget.UnregisterTM();
                     // MainAppWidget.registerTM();

@@ -38,6 +38,9 @@ public class TimingService extends JobIntentService {
     // Unique Identification Number for the Notification.
     // We use it on Notification start, and to cancel it.
     private int NOTIFICATION = R.string.local_service_started;
+    public static  int voulume=0;
+    public static  int MAX_VOLUME=99999;
+
     public TimingService() {
     }
 
@@ -240,7 +243,7 @@ public class TimingService extends JobIntentService {
                     ListLog.addtolist("runGetVolumep "+ String.valueOf(dis) + " " + GetCurrentTime.GetTime());
                     StatusM= "Lat " + Double.valueOf(item.split("#")[1]).toString()  + " \nLon " + Double.valueOf(item.split("#")[2]).toString() + " \ndistance " + String.valueOf(dis);
                     if (dis>=Double.valueOf(item.split("#")[3])) {
-                        new TimingService().getVoulumeP();
+                        new TimingService().getVoulumeP(MAX_VOLUME);
                         Log.i("runGetVolumep", "runGetVolumep");
                     }
                 }else
@@ -249,7 +252,7 @@ public class TimingService extends JobIntentService {
                 }
             } else {
 
-                new TimingService().getVoulumeP();
+                new TimingService().getVoulumeP(MAX_VOLUME);
                 Log.i("runGetVolumep", "runGetVolumep");
             }
 
@@ -270,7 +273,7 @@ public class TimingService extends JobIntentService {
         }
     }
 
-    public static double getVoulumeP()
+    public static double getVoulumeP(double volume)
     {
         try {
             // Log.i("getVoulumeP", String.valueOf(dist));
@@ -291,17 +294,22 @@ public class TimingService extends JobIntentService {
 // Set the music stream volume.
             audio.setStreamVolume(AudioManager.STREAM_MUSIC, desiredMusicVolume, 0 /*flags*/);
 
-
-            if (proportion < 0.5) {
-                audio.setStreamVolume(AudioManager.STREAM_RING, maxRingerVolume, AudioManager.FLAG_PLAY_SOUND);
-
-                if (r != null && !r.isPlaying()) {
-                    r.play();
-
-                }
+            voulume=currentVolume;
+            if (voulume!=MAX_VOLUME)
+            {
+                audio.setStreamVolume(AudioManager.STREAM_RING,voulume, AudioManager.FLAG_PLAY_SOUND);
             }
+            else {
+                if (proportion < 0.5) {
+                    audio.setStreamVolume(AudioManager.STREAM_RING, maxRingerVolume, AudioManager.FLAG_PLAY_SOUND);
 
+                    if (r != null && !r.isPlaying()) {
+                        r.play();
 
+                    }
+                }
+
+            }
             return proportion;
         }
         catch(Exception e)
