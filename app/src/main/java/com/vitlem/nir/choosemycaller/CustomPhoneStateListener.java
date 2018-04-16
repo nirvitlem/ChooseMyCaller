@@ -38,7 +38,7 @@ public class CustomPhoneStateListener extends PhoneStateListener {
 
                     Log.i(LOG_TAG, "onCallStateChanged: CALL_STATE_IDLE");
                     TimingService.StopPalyPlayer();
-                    TimingService.getVoulumeP(TimingService.voulume);
+                    TimingService.getVoulumeP(TimingService.volume);
                 }
                 break;
             case TelephonyManager.CALL_STATE_RINGING:
@@ -59,7 +59,7 @@ public class CustomPhoneStateListener extends PhoneStateListener {
                     ListLog.addtolist("CALL_STATE_OFFHOOK " + GetCurrentTime.GetTime());
                     Log.i(LOG_TAG, "onCallStateChanged: CALL_STATE_OFFHOOK");
                     TimingService.StopPalyPlayer();
-                    TimingService.getVoulumeP(TimingService.voulume);
+                    TimingService.getVoulumeP(TimingService.volume);
                     //  MainAppWidget.UnregisterTM();
                     //MainAppWidget.UnregisterTM();
                     // MainAppWidget.registerTM();
