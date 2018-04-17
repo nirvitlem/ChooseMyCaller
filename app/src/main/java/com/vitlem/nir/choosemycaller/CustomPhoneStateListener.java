@@ -72,6 +72,8 @@ public class CustomPhoneStateListener extends PhoneStateListener {
                 //MainAppWidget.UnregisterTM();
                 // MainAppWidget.UnregisterTM();
                 // MainAppWidget.registerTM();
+                TimingService.StopPalyPlayer();
+                TimingService.getVoulumeP(TimingService.volume);
                 break;
         }
 
