@@ -296,12 +296,12 @@ public class TimingService extends JobIntentService {
             volume=currentVolume;
             if (volumeM!=MAX_VOLUME)
             {
-                audio.setStreamVolume(AudioManager.STREAM_RING,volumeM, AudioManager.FLAG_PLAY_SOUND);
+                audio.setStreamVolume(AudioManager.STREAM_RING,volumeM, 0);
                 audio.setStreamVolume(AudioManager.STREAM_MUSIC, volumeM, 0 /*flags*/);
             }
             else {
                 if (proportion < 0.5) {
-                    audio.setStreamVolume(AudioManager.STREAM_RING, maxRingerVolume, AudioManager.FLAG_PLAY_SOUND);
+                    audio.setStreamVolume(AudioManager.STREAM_RING, maxRingerVolume, 0);
                     audio.setStreamVolume(AudioManager.STREAM_MUSIC, desiredMusicVolume, 0 /*flags*/);
                     if (r != null && !r.isPlaying()) {
                         r.play();
