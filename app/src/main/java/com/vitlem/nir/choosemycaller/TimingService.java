@@ -243,7 +243,7 @@ public class TimingService extends JobIntentService {
                     ListLog.addtolist("runGetVolumep "+ String.valueOf(dis) + " " + GetCurrentTime.GetTime());
                     StatusM= "Lat " + Double.valueOf(item.split("#")[1]).toString()  + " \nLon " + Double.valueOf(item.split("#")[2]).toString() + " \ndistance " + String.valueOf(dis);
                     if (dis>=Double.valueOf(item.split("#")[3])) {
-                        new TimingService().getVoulumeP(MAX_VOLUME);
+                        TimingService.getVoulumeP(MAX_VOLUME,0);
                         Log.i("runGetVolumep", "runGetVolumep");
                     }
                 }else
@@ -252,7 +252,7 @@ public class TimingService extends JobIntentService {
                 }
             } else {
 
-                new TimingService().getVoulumeP(MAX_VOLUME);
+                TimingService.getVoulumeP(MAX_VOLUME,0);
                 Log.i("runGetVolumep", "runGetVolumep");
             }
 
@@ -273,7 +273,13 @@ public class TimingService extends JobIntentService {
         }
     }
 
-    public static double getVoulumeP(int volumeM)
+    public  static void setcurrentvolume()
+    {
+        volume = audio.getStreamVolume(AudioManager.STREAM_RING);
+        Log.i("setcurrentvolume ", String.valueOf(volume));
+    }
+
+    public static double getVoulumeP(int volumeM,int Flag)
     {
         try {
             // Log.i("getVoulumeP", String.valueOf(dist));
@@ -281,7 +287,7 @@ public class TimingService extends JobIntentService {
             ListLog.addtolist("getVoulumeP " + GetCurrentTime.GetTime());
 // Get the current ringer volume as a percentage of the max ringer volume.
             int currentVolume = audio.getStreamVolume(AudioManager.STREAM_RING);
-            Log.i("currentVolume", String.valueOf(currentVolume));
+            Log.i("getVoulumeP ", "currentVolume " + String.valueOf(currentVolume));
             int maxRingerVolume = audio.getStreamMaxVolume(AudioManager.STREAM_RING);
             Log.i("maxRinger", String.valueOf(maxRingerVolume));
             double proportion = currentVolume / (double) maxRingerVolume;
@@ -293,16 +299,19 @@ public class TimingService extends JobIntentService {
 
 // Set the music stream volume.
 
-            volume=currentVolume;
+
             if (volumeM!=MAX_VOLUME)
             {
-                audio.setStreamVolume(AudioManager.STREAM_RING,volumeM, 0);
-                audio.setStreamVolume(AudioManager.STREAM_MUSIC, volumeM, 0 /*flags*/);
+                Log.i("volumeM ", String.valueOf(volumeM));
+                audio.setStreamVolume(AudioManager.STREAM_RING,volumeM, Flag);
+                audio.setStreamVolume(AudioManager.STREAM_MUSIC, volumeM, Flag /*flags*/);
+
             }
             else {
                 if (proportion < 0.5) {
-                    audio.setStreamVolume(AudioManager.STREAM_RING, maxRingerVolume, 0);
-                    audio.setStreamVolume(AudioManager.STREAM_MUSIC, desiredMusicVolume, 0 /*flags*/);
+                    Log.i("MAX_VOLUME ", String.valueOf(MAX_VOLUME));
+                    audio.setStreamVolume(AudioManager.STREAM_RING, maxRingerVolume, Flag);
+                    audio.setStreamVolume(AudioManager.STREAM_MUSIC, desiredMusicVolume, Flag /*flags*/);
                     if (r != null && !r.isPlaying()) {
                         r.play();
 

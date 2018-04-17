@@ -1,6 +1,7 @@
 package com.vitlem.nir.choosemycaller;
 
 import android.graphics.Color;
+import android.media.AudioManager;
 import android.telephony.CellInfo;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
@@ -38,12 +39,13 @@ public class CustomPhoneStateListener extends PhoneStateListener {
 
                     Log.i(LOG_TAG, "onCallStateChanged: CALL_STATE_IDLE");
                     TimingService.StopPalyPlayer();
-                    TimingService.getVoulumeP(TimingService.volume);
+                    TimingService.getVoulumeP(TimingService.volume,0);
                 }
                 break;
             case TelephonyManager.CALL_STATE_RINGING:
                 if (CallStatus==0) {
                     // MainAppWidget.UnregisterTM();
+                    TimingService.setcurrentvolume();
                     ListLog.addtolist("CALL_STATE_RINGING " + GetCurrentTime.GetTime());
                     Log.i(LOG_TAG, "onCallStateChanged: CALL_STATE_RINGING");
                     Log.i(LOG_TAG, "incomingNumber: " + incomingNumber);
@@ -59,7 +61,7 @@ public class CustomPhoneStateListener extends PhoneStateListener {
                     ListLog.addtolist("CALL_STATE_OFFHOOK " + GetCurrentTime.GetTime());
                     Log.i(LOG_TAG, "onCallStateChanged: CALL_STATE_OFFHOOK");
                     TimingService.StopPalyPlayer();
-                    TimingService.getVoulumeP(TimingService.volume);
+                    TimingService.getVoulumeP(TimingService.volume, 0);
                     //  MainAppWidget.UnregisterTM();
                     //MainAppWidget.UnregisterTM();
                     // MainAppWidget.registerTM();
@@ -73,7 +75,7 @@ public class CustomPhoneStateListener extends PhoneStateListener {
                 // MainAppWidget.UnregisterTM();
                 // MainAppWidget.registerTM();
                 TimingService.StopPalyPlayer();
-                TimingService.getVoulumeP(TimingService.volume);
+                TimingService.getVoulumeP(TimingService.volume,0);
                 break;
         }
 

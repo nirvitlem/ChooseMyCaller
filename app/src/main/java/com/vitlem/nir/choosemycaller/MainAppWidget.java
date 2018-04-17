@@ -271,7 +271,7 @@ public class MainAppWidget extends AppWidgetProvider {
                     Log.i("match num", item.split("#")[0].toString() + " incomming number " + incomingNumber);
                     if (item.split("#")[1].toString().equals("0")) {
 
-                        TimingService.getVoulumeP(TimingService.MAX_VOLUME);
+                        TimingService.getVoulumeP(TimingService.MAX_VOLUME,0);
                     } else {
                         TimingService.runGetVolumep();
                     }
