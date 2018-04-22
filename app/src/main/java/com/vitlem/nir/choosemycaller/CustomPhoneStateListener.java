@@ -32,7 +32,7 @@ public class CustomPhoneStateListener extends PhoneStateListener {
         switch (state) {
             case TelephonyManager.CALL_STATE_IDLE:
                 if (CallStatus==1 || CallStatus==2) {
-                    if (CallStatus == 0 ) CallStatus=2; else CallStatus=0;
+                    if (CallStatus == 1 ) CallStatus=2; else CallStatus=0;
                     MainAppWidget.SetText("IDLE " + GetCurrentTime.GetTime() + "\n" + lastInfo, Color.GREEN);
                     ListLog.addtolist("CALL_STATE_IDLE \n* " + lastInfo + " * " + GetCurrentTime.GetTime());
 
