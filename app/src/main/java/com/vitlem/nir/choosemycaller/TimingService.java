@@ -285,7 +285,7 @@ public class TimingService extends JobIntentService {
             // Log.i("getVoulumeP", String.valueOf(dist));
             //audio = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
             ListLog.addtolist("getVoulumeP " + GetCurrentTime.GetTime());
-            ListLog.addtolist("volumeM " + GetCurrentTime.GetTime());
+            ListLog.addtolist("getVoulumeP volumeM " + String.valueOf(volumeM) + " " +  GetCurrentTime.GetTime());
 // Get the current ringer volume as a percentage of the max ringer volume.
             int currentVolume = audio.getStreamVolume(AudioManager.STREAM_RING);
             Log.i("getVoulumeP ", "currentVolume " + String.valueOf(currentVolume));
