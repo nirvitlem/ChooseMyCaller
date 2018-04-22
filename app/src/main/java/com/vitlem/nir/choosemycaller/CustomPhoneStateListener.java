@@ -28,7 +28,7 @@ public class CustomPhoneStateListener extends PhoneStateListener {
 
         if (incomingNumber == null) incomingNumber = "null";
 
-
+        ListLog.addtolist("CallStatus " + String.valueOf(CallStatus) + " state " + String.valueOf(state) + " " + GetCurrentTime.GetTime());
         switch (state) {
             case TelephonyManager.CALL_STATE_IDLE:
                 if (CallStatus==1 || CallStatus==2) {
