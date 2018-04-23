@@ -51,6 +51,17 @@
             </intent-filter>
         </activity>
 
+        <receiver
+            android:name=".RemoteControlReceiver"
+            android:enabled="true"
+            android:exported="true"
+            android:label="RemoteControlReceiver">
+        <intent-filter>
+            <action android:name="android.media.VOLUME_CHANGED_ACTION" />
+        </intent-filter>
+
+    </receiver>
+
     </application>
 
 </manifest>

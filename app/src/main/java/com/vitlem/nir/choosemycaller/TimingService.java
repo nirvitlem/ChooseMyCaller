@@ -1,8 +1,10 @@
 package com.vitlem.nir.choosemycaller;
+
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -57,6 +59,9 @@ public class TimingService extends JobIntentService {
         ListLog.addtolist("onCreate TimingService" + GetCurrentTime.GetTime());
         mNM = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
         startForeground(1,new Notification());
+        audio = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+        audio.registerMediaButtonEventReceiver(new ComponentName(getPackageName(),RemoteControlReceiver.class.getName()));
+        setcurrentvolume();
         // Display a notification about us starting.  We put an icon in the status bar.
         //showNotification();
         //Start();
@@ -100,6 +105,7 @@ public class TimingService extends JobIntentService {
         if (mReceiver != null)
             unregisterReceiver(mReceiver);
         if (br != null) unregisterReceiver(br);
+        if (audio!=null) audio.unregisterMediaButtonEventReceiver(new ComponentName(getPackageName(),RemoteControlReceiver.class.getName()));
     }
     private void showNotification() {
         // In this sample, we'll use the same text for the ticker and the expanded notification
@@ -129,9 +135,10 @@ public class TimingService extends JobIntentService {
         Log.d("Start", "Start Main");
         ListLog.addtolist("Start TimingService " + GetCurrentTime.GetTime());
         audio = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+        audio.registerMediaButtonEventReceiver(new ComponentName(getPackageName(),RemoteControlReceiver.class.getName()));
         alertUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE);
         r = RingtoneManager.getRingtone(getApplicationContext(), alertUri);
-       //if (CustomPhoneStateListener.CallStatus==0) getVoulumeP(volume,0);
+        if (CustomPhoneStateListener.CallStatus==0) getVoulumeP(volume,0);
        // if (tManager == null) {
         //    Log.d("tManager", "null ");
         try {
@@ -275,8 +282,15 @@ public class TimingService extends JobIntentService {
 
     public  static void setcurrentvolume()
     {
-        volume = audio.getStreamVolume(AudioManager.STREAM_RING);
-        Log.i("setcurrentvolume ", String.valueOf(volume));
+        try {
+            volume = audio.getStreamVolume(AudioManager.STREAM_RING);
+            Log.i("setcurrentvolume ", String.valueOf(volume));
+            ListLog.addtolist("setcurrentvolume " + String.valueOf(volume) + " " + GetCurrentTime.GetTime());
+        }catch (Exception e)
+        {
+            Log.i("setcurrentvolume ", e.getMessage());
+            ListLog.addtolist("setcurrentvolume " +  e.getMessage()+ " " + GetCurrentTime.GetTime());
+        }
     }
 
     public static double getVoulumeP(int volumeM,int Flag)
