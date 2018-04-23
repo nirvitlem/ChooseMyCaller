@@ -38,7 +38,7 @@ public class TimingService extends JobIntentService {
     // Unique Identification Number for the Notification.
     // We use it on Notification start, and to cancel it.
     private int NOTIFICATION = R.string.local_service_started;
-    public static  int volume=0;
+    public static  int volume;
     public static  int MAX_VOLUME=99999;
 
     public TimingService() {
@@ -131,7 +131,7 @@ public class TimingService extends JobIntentService {
         audio = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
         alertUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE);
         r = RingtoneManager.getRingtone(getApplicationContext(), alertUri);
-
+       //if (CustomPhoneStateListener.CallStatus==0) getVoulumeP(volume,0);
        // if (tManager == null) {
         //    Log.d("tManager", "null ");
         try {
