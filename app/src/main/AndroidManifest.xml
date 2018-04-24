@@ -58,6 +58,7 @@
             android:label="RemoteControlReceiver">
         <intent-filter>
             <action android:name="android.media.VOLUME_CHANGED_ACTION" />
+            <action android:name="android.intent.action.MEDIA_BUTTON" />
         </intent-filter>
 
     </receiver>

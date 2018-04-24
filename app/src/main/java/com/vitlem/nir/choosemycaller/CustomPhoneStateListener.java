@@ -32,19 +32,21 @@ public class CustomPhoneStateListener extends PhoneStateListener {
         switch (state) {
             case TelephonyManager.CALL_STATE_IDLE:
                 if (CallStatus==1 || CallStatus==2) {
-                   // if (CallStatus == 1 ) CallStatus=2; else CallStatus=0;
+                   // if (CallStatus == 1 ) CallStatus=2; else
+
                     MainAppWidget.SetText("IDLE " + GetCurrentTime.GetTime() + "\n" + lastInfo, Color.GREEN);
                     ListLog.addtolist("CALL_STATE_IDLE \n* " + lastInfo + " * " + GetCurrentTime.GetTime());
 
                     Log.i(LOG_TAG, "onCallStateChanged: CALL_STATE_IDLE");
                     TimingService.StopPalyPlayer();
                     TimingService.getVoulumeP(TimingService.volume,0);
+                    CallStatus=0;
                 }
                 break;
             case TelephonyManager.CALL_STATE_RINGING:
                 if (CallStatus==0) {
                     // MainAppWidget.UnregisterTM();
-                    TimingService.setcurrentvolume();
+                   // TimingService.setcurrentvolume();
                     ListLog.addtolist("CALL_STATE_RINGING " + GetCurrentTime.GetTime());
                     Log.i(LOG_TAG, "onCallStateChanged: CALL_STATE_RINGING");
                     Log.i(LOG_TAG, "incomingNumber: " + incomingNumber);
@@ -60,7 +62,7 @@ public class CustomPhoneStateListener extends PhoneStateListener {
                     ListLog.addtolist("CALL_STATE_OFFHOOK " + GetCurrentTime.GetTime());
                     Log.i(LOG_TAG, "onCallStateChanged: CALL_STATE_OFFHOOK");
                     TimingService.StopPalyPlayer();
-                   // TimingService.getVoulumeP(TimingService.volume, 0);
+                    TimingService.getVoulumeP(TimingService.volume, 0);
                     //  MainAppWidget.UnregisterTM();
                     //MainAppWidget.UnregisterTM();
                     // MainAppWidget.registerTM();
