@@ -58,7 +58,7 @@ public class CustomPhoneStateListener extends PhoneStateListener {
 
                 break;
             case TelephonyManager.CALL_STATE_OFFHOOK:
-                if (CallStatus==1) {
+                if ((CallStatus==1) || (CallStatus==2)){
                     ListLog.addtolist("CALL_STATE_OFFHOOK " + GetCurrentTime.GetTime());
                     Log.i(LOG_TAG, "onCallStateChanged: CALL_STATE_OFFHOOK");
                     TimingService.StopPalyPlayer();
